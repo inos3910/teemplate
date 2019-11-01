@@ -10,24 +10,25 @@ export class Validate extends Utils {
 
   contactInit() {
     const $form = $('#js-contact form');
-    if ($form[0]) {
-      const contact = $.extend(true, {}, {
-        form       : $form,
-        name       : $('#user_name'),
-        email      : $('#user_email'),
-        message    : $('#message'),
-        privacy    : $('#privacy'),
-        submit     : $('.js-contact-submit')
-      });
-      //バリデーションの属性をセット
-      this.setValidationAttrs(contact);
-      //プライバシーポリシーのチェックで送信ボタンの表示・非表示
-      contact.privacy.on('change', (e) => {
-        this.disabledSendButton(e, contact);
-      }).change();
-      //validationEngine
-      this.setValidationEngine(contact);
+    if (!$form[0]) {
+      return;
     }
+    const contact = $.extend(true, {}, {
+      form       : $form,
+      name       : $('#user_name'),
+      email      : $('#user_email'),
+      message    : $('#message'),
+      privacy    : $('#privacy'),
+      submit     : $('.js-contact-submit')
+    });
+    //バリデーションの属性をセット
+    this.setValidationAttrs(contact);
+    //プライバシーポリシーのチェックで送信ボタンの表示・非表示
+    contact.privacy.on('change', (e) => {
+      this.disabledSendButton(e, contact);
+    }).change();
+    //validationEngine
+    this.setValidationEngine(contact);
   }
 
   /*

@@ -4,6 +4,7 @@
 *.mp4
 *.map
 *.lock
+*.webp
 
 .htaccess
 .htpasswd

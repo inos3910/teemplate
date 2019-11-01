@@ -10,8 +10,6 @@ export class Utils {
   //初期設定
   default() {
     this.lazyload();
-    //画面内の位置で要素を出現させるエフェクト
-    this.setIntersectionObserver();
     //object-fit polyfill
     this.objectFitImages();
     //responsive image polyfill
@@ -113,30 +111,41 @@ export class Utils {
   * @param {Number} speed ターゲット要素
   */
   scrollTo(target, speed) {
-    if ($(target)[0]) {
-      const $html        = $('html');
-      const targetPos    = $(target).offset().top;
-      const headerHeight = $('#js-header').innerHeight();
-      return anime({
-        targets     : 'html,body',
-        scrollTop   : targetPos - headerHeight,
-        duration    : speed ? speed : 800,
-        easing      : 'easeInOutExpo',
-        elasticity  : 300,
-        begin       : () => {
-          $html.addClass('u-noevent');
-          document.addEventListener('touchmove', this.scrollControl, {passive: false});
-        },
-        complete    : () => {
-          $html.removeClass('u-noevent');
-          document.removeEventListener('touchmove', this.scrollControl, {passive: false});
-        }
-      });
+    if (!$(target)[0]) {
+      return;
     }
+    const targetPos    = $(target).offset().top;
+    const $header      = $('#js-header');
+    const headerHeight = $header[0] ? $header.innerHeight() : 0;
+    return anime({
+      targets     : 'html,body',
+      scrollTop   : targetPos - headerHeight,
+      duration    : speed ? speed : 800,
+      easing      : 'easeInOutExpo',
+      elasticity  : 300,
+      begin       : () => {
+        this.noevent();
+      },
+      complete    : () => {
+        this.cancelNoevent();
+      }
+    });
   }
 
   scrollControl(e){
     e.preventDefault();
+  }
+
+  noevent(){
+    const $html = $('html');
+    $html.addClass('u-noevent');
+    document.addEventListener('touchmove', this.scrollControl, {passive: false});
+  }
+
+  cancelNoevent(){
+    const $html = $('html');
+    $html.removeClass('u-noevent');
+    document.removeEventListener('touchmove', this.scrollControl, {passive: false});
   }
 
   /*
@@ -156,76 +165,47 @@ export class Utils {
   //lazyloadを全て適用
   lazysizesUnveil() {
     return new Promise(resolve => {
-      if(typeof lazySizes != 'undefined'){
-        const $imgs = Array.from(document.querySelectorAll('.lazyload'));
-        const count = $imgs.length;
-        if(count){
-          $imgs.forEach((img, i) => {
-            lazySizes.loader.unveil(img);
-            if(i+1 === count){
-              const timer = setTimeout(() => {
-                resolve();
-                clearTimeout(timer);
-              }, 100);
-            }
-          });
-        }
-        else {
-          resolve();
-        }
-      }
-      else {
+      if(typeof lazySizes == 'undefined'){
         resolve();
       }
-    });
-  }
-
-  /*
-  * ページトップスクロール
-  * @param {Object} e イベントオブジェクト
-  */
-  pagetopScroll(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    const $html = $('html');
-    return anime({
-      targets     : 'html,body',
-      scrollTop   : 0,
-      duration    : 800,
-      easing      : 'easeInOutExpo',
-      elasticity  : 300,
-      begin       : () => {
-        $html.addClass('u-noevent');
-        document.addEventListener('touchmove', this.scrollControl, {passive: false});
-      },
-      complete    : () => {
-        $html.removeClass('u-noevent');
-        document.removeEventListener('touchmove', this.scrollControl, {passive: false});
+      const $imgs = Array.from(document.querySelectorAll('.lazyload'));
+      const count = $imgs.length;
+      if(!count){
+        resolve();
       }
+      $imgs.forEach((img, i) => {
+        lazySizes.loader.unveil(img);
+        if(i+1 === count){
+          const timer = setTimeout(() => {
+            resolve();
+            clearTimeout(timer);
+          }, 100);
+        }
+      });
     });
   }
 
-   //画面内の位置で要素を出現させるエフェクト
-   setIntersectionObserver(){
-     const options = {
-       threshold: 0.2
-     }
+  //画面内の位置で要素を出現させるエフェクト
+  setIntersectionObserver(){
+    const options = {
+      threshold: 0.2
+    }
 
-     const callback = (entries, observer) => {
-       entries.forEach(entry => {
-         if (entry.intersectionRatio > 0.2) {
-           entry.target.classList.add('is-effect');
-         }
-       });
-     }
+    const callback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0.2) {
+          entry.target.classList.add('is-effect');
+        }
+      });
+    }
 
-     const observer  = new IntersectionObserver(callback, options);
+    const observer  = new IntersectionObserver(callback, options);
 
-     const observers = Array.from(document.querySelectorAll('.is-ev'));
-     observers.forEach(el => {
-       observer.observe(el);
-     });
-   }
- }
+    const observers = Array.from(document.querySelectorAll('.is-ev'));
+    observers.forEach(el => {
+      observer.observe(el);
+    });
+  }
+}
 
- export default Utils;
+export default Utils;

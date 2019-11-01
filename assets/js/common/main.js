@@ -34,7 +34,7 @@ export class Main extends Validate {
   */
   closeMenu() {
     this.isOpenMenu = false;
-    const $menu     = $('#js-nav');
+    const $menu = $('#js-nav');
     const $menuBtn = $('#js-menuBtn');
     $menuBtn.removeClass('is-active');
     $menu.removeClass('is-active');

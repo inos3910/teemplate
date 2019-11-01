@@ -19,18 +19,16 @@ class Events extends Main {
     this.win.on('load', () => {
       //transitionを有効化
       this.body.removeClass('u-preload');
+      //画面内の位置で要素を出現させるエフェクト
+      this.setIntersectionObserver();
     });
 
     //スマホ：メニューボタンタップ
-    this.doc.on('touchstart touchmove touchend', '#js-menuBtn', (e) => {
-      this.promise(() => {
-        return this.isPC();
-      })
-      .then((isPC) => {
-        if (!isPC) {
-          this.touchEvent('toggleMenu', e, $(e.currentTarget));
-        }
-      });
+    this.doc.on('touchstart touchmove touchend', '#js-menuBtn', async (e) => {
+      const isPC = await this.isPC();
+      if(!isPC){
+        this.touchEvent('toggleMenu', e, $(e.currentTarget));
+      }
     });
 
     //アンカースクロール
