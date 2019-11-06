@@ -26,6 +26,8 @@ export const paths = {
   spriteminDir    : path.join(__dirname, '../assets/spritemin'),
   jsSrcDir        : path.join(__dirname, '../assets/js'),
   jsDistDir       : path.join(__dirname, '../assets/dist'),
+  tsSrcDir        : path.join(__dirname, '../assets/ts'),
+  tsDistDir       : path.join(__dirname, '../assets/build'),
   sassDir         : path.join(__dirname, '../assets/sass'),
   cssDir          : path.join(__dirname, '../assets/css'),
   svgDir          : path.join(__dirname, '../assets/svg'),
@@ -42,6 +44,7 @@ export const globs = {
   sprites : `${paths.spriteDir}/**/*.+(jpg|jpeg|png)`,
   sass    : `${paths.sassDir}/**/*.scss`,
   js      : `${paths.jsSrcDir}/**/*.+(js|vue)`,
+  ts      : `${paths.tsSrcDir}/**/*.ts`,
   entry   : `${paths.jsSrcDir}/**/entry.js`
 }
 

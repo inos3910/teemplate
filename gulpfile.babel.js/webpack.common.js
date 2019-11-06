@@ -56,6 +56,14 @@ module.exports = {
       }
     },
     {
+      test: /\.ts$/,
+      use: [
+      { loader: "babel-loader" },
+      { loader: "ts-loader" }
+      ],
+      exclude: /node_modules/
+    },
+    {
       test: /\.scss$/,
       use: [
       "vue-style-loader",
@@ -99,6 +107,7 @@ module.exports = {
   },
   resolve: {
     modules    : ["node_modules"],
+    extensions : ['.ts', '.vue', '.js'],
     alias      : {
       '@as' : paths.assetsDir,
       '@js' : paths.jsSrcDir,
