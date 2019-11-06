@@ -27,7 +27,7 @@ module.exports = {
     // jQuery           : 'jquery',
     objectFitImages  : 'object-fit-images',
     anime            : ['animejs/lib/anime.es.js', 'default'],
-    lazySizes        : 'lazysizes',
+    //lazySizes        : 'lazysizes',
     picturefill      : 'picturefill'
     //Barba            : 'barba.js',
     //Rellax           : 'rellax'

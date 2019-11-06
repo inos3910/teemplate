@@ -1,3 +1,5 @@
+import 'lazysizes';
+import 'lazysizes/plugins/aspectratio/ls.aspectratio.js';
 export class Utils {
   constructor() {
     this.win   = $(window);
