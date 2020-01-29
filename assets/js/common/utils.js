@@ -49,8 +49,17 @@ export class Utils {
   //タブレット判定
   isTablet() {
     const ua = navigator.userAgent;
-    const isTablet = ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0;
-    return isTablet;
+    const isSp = this.isSp();
+    if(isSp){
+      return false;
+    }
+    //タブレットの場合
+    else if(ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   //PC判定
