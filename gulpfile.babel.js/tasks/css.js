@@ -31,6 +31,13 @@ import progeny                  from 'gulp-progeny'
 import browserSync              from 'browser-sync'
 //@importのglobを有効にする
 import sassGlob                 from 'gulp-sass-glob'
+//ファイル削除
+import del                      from 'del'
+
+//出力済みファイルを削除
+gulp.task('delete:cssDir', (cb) => {
+  return del([paths.cssDir], cb);
+});
 
 gulp.task('build:css', () => {
   const processors = [

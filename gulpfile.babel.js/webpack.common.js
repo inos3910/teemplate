@@ -1,13 +1,13 @@
 import webpack                from 'webpack'
 import EncodingPlugin         from 'webpack-encoding-plugin'
-import VueLoaderPlugin        from 'vue-loader/lib/plugin'
+import {VueLoaderPlugin}      from 'vue-loader'
 import path                   from 'path'
 import {paths}                from './config.js'
 
 module.exports = {
   cache    : true,
   output   : {
-    filename : '[name].bundle.js',
+    filename : '[name].js',
   },
   // optimization: {
   //   splitChunks: {

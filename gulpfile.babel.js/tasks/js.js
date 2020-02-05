@@ -18,6 +18,13 @@ import webpack         from 'webpack';
 import webpackStream   from 'webpack-stream';
 import webpackConfig   from '../webpack.config';
 import browserSync     from 'browser-sync';
+//ファイル削除
+import del                      from 'del'
+
+//出力済みファイルを削除
+gulp.task('delete:jsDistDir', (cb) => {
+  return del([paths.jsDistDir], cb);
+});
 
 //処理中のファイル名を入れる
 let proccessings = [];
