@@ -4,15 +4,9 @@ import { globs } from '../config'
 
 const watcher = done => {
   //sass
-  gulp.watch(globs.sass, gulp.series(
-    'delete:cssDir',
-    'build:css'
-    ))
+  gulp.watch(globs.sass, gulp.task('build:css'))
   //js
-  gulp.watch(globs.js, gulp.series(
-    'delete:jsDistDir',
-    'build:js'
-    ))
+  gulp.watch(globs.js, gulp.task('build:js'))
   //html
   gulp.watch(globs.html, gulp.task('reload:html'))
   //TypeScript
