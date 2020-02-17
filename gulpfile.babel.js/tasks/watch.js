@@ -10,10 +10,7 @@ const watcher = done => {
   //html
   gulp.watch(globs.html, gulp.task('reload:html'))
   //TypeScript
-  gulp.watch(globs.ts,   gulp.series(
-    'clean:ts',
-    'build:ts'
-    ))
+  gulp.watch(globs.ts,   gulp.task('build:ts'))
   done()
 }
 
