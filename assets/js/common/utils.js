@@ -1,5 +1,7 @@
 import 'lazysizes';
 import 'lazysizes/plugins/aspectratio/ls.aspectratio.js';
+require('intersection-observer');
+
 export class Utils {
   constructor() {
     this.win   = $(window);
@@ -12,10 +14,10 @@ export class Utils {
   //初期設定
   default() {
     this.lazyload();
-    //object-fit polyfill
     this.objectFitImages();
-    //responsive image polyfill
     this.picturefill();
+    this.scrollEffectByPosition();
+    this.setIntersectionObserver();
   }
 
   //lazysizes
@@ -168,9 +170,7 @@ export class Utils {
     e.preventDefault();
     const selecter = $(e.currentTarget).attr('href');
     const target   = selecter === '#' ? 'html, body' : selecter;
-    this.lazysizesUnveil().then(() => {
-      this.scrollTo(target, 800);
-    });
+    this.scrollTo(target, 800);
   }
 
   //lazyloadを全て適用
@@ -199,12 +199,12 @@ export class Utils {
   //画面内の位置で要素を出現させるエフェクト
   setIntersectionObserver(){
     const options = {
-      threshold: 0.2
+      threshold: 0
     }
 
     const callback = (entries, observer) => {
       entries.forEach(entry => {
-        if (entry.intersectionRatio > 0.2) {
+        if (entry.isIntersecting) {
           entry.target.classList.add('is-effect');
         }
       });
@@ -215,6 +215,19 @@ export class Utils {
     const observers = Array.from(document.querySelectorAll('.is-ev'));
     observers.forEach(el => {
       observer.observe(el);
+    });
+  }
+
+  //スクロール位置が要素を超えていたらエフェクトを発火
+  scrollEffectByPosition(){
+    const scrollPosition = this.win.scrollTop();
+    const $observers = $('.is-ev');
+    $.each($observers, (i, el) => {
+      const $target = $(el);
+      const targetPosition = $target.offset().top;
+      if(scrollPosition >= targetPosition){
+        $target.addClass('is-effect');
+      }
     });
   }
 }

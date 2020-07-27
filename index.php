@@ -40,7 +40,7 @@
     <!-- /.l-footer -->
   </div>
   <!-- /.l-cover -->
-  <script src="assets/build/main.bundle.js" async defer></script>
+  <script src="assets/dist/common.bundle.js" async></script>
 </body>
 
 </html>

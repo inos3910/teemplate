@@ -1,5 +1,6 @@
-import Validate from '@js/common/validate';
-export class Main extends Validate {
+//import Validate from '@js/common/validate';
+import Utils from '@js/common/utils';
+export class Main extends Utils {
   constructor() {
     super();
     //メニュー開閉フラグ
@@ -23,10 +24,7 @@ export class Main extends Validate {
   */
   openMenu() {
     this.isOpenMenu = true;
-    const $menu = $('#js-nav');
-    const $menuBtn = $('#js-menuBtn');
-    $menuBtn.addClass('is-active');
-    $menu.addClass('is-active');
+    this.body.addClass('is-menu-active');
   }
 
   /*
@@ -34,10 +32,7 @@ export class Main extends Validate {
   */
   closeMenu() {
     this.isOpenMenu = false;
-    const $menu = $('#js-nav');
-    const $menuBtn = $('#js-menuBtn');
-    $menuBtn.removeClass('is-active');
-    $menu.removeClass('is-active');
+    this.body.removeClass('is-menu-active');
   }
 
 }

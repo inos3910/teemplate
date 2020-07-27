@@ -23,8 +23,8 @@ module.exports = {
     encoding: 'utf-8'
   }),
   new webpack.ProvidePlugin({
-    // $                : 'jquery',
-    // jQuery           : 'jquery',
+    $                : 'jquery',
+    jQuery           : 'jquery',
     objectFitImages  : 'object-fit-images',
     anime            : ['animejs/lib/anime.es.js', 'default'],
     //lazySizes        : 'lazysizes',
