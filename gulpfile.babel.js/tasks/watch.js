@@ -1,17 +1,18 @@
 //Task:Watch
-import gulp from 'gulp'
-import { globs } from '../config'
+import gulp            from 'gulp'
+import { globs }       from '../config'
+import { buildCss }    from './css'
+import { buildJs }     from './js'
+import { reload }      from './html'
+import { buildTs }     from './ts'
+import { browsersync } from './browsersync'
 
-const watcher = done => {
-  //sass
-  gulp.watch(globs.sass, gulp.task('build:css'))
-  //js
-  gulp.watch(globs.js, gulp.task('build:js'))
-  //html
-  gulp.watch(globs.html, gulp.task('reload:html'))
-  //TypeScript
-  gulp.watch(globs.ts,   gulp.task('build:ts'))
-  done()
+const watcher = (done) => {
+  gulp.watch(globs.sass, buildCss);
+  gulp.watch(globs.js, buildJs);
+  gulp.watch(globs.html, reload);
+  gulp.watch(globs.ts, buildTs);
+  done();
 }
 
-gulp.task('watch', gulp.series(watcher, 'browsersync'))
+exports.watcher = watcher;

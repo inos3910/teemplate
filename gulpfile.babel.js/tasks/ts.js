@@ -5,8 +5,8 @@ import {globs, paths}  from '../config';
 import plumber         from 'gulp-plumber';
 //デスクトップ通知
 import notify          from 'gulp-notify';
-import diff            from 'gulp-diff-build';
-import cache           from 'gulp-cached';
+// import diff            from 'gulp-diff-build';
+// import cache           from 'gulp-cached';
 //webpackでファイル結合時に名前変更
 import named           from 'vinyl-named';
 import gulpif          from 'gulp-if';
@@ -17,18 +17,21 @@ import browserSync     from 'browser-sync';
 import del             from 'del';
 import path            from 'path';
 
-gulp.task('clean:ts', (done) => {
-  del([paths.tsDistDir]);
-  done();
-});
+function deleteTsDistDir(done) {
+  return del([paths.tsDistDir], done);
+}
+exports.deleteTsDistDir = deleteTsDistDir;
 
-gulp.task('build:ts', () => {
-  return gulp.src(globs.ts, { allowEmpty: true })
+function ts() {
+  return gulp.src(globs.ts, {
+    allowEmpty : true,
+    since      : gulp.lastRun(ts)
+  })
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>')
   }))
-  .pipe(diff())
-  .pipe(cache('ts'))
+  // .pipe(diff())
+  // .pipe(cache('ts'))
   .pipe(named((file) => {
     return path.parse(file.relative).dir ? path.parse(file.relative).dir : 'main';
   }))
@@ -37,8 +40,9 @@ gulp.task('build:ts', () => {
     this.emit('end');
   })
   .pipe(gulp.dest(paths.tsDistDir))
-  .pipe(notify('build:ts finished'))
+  .pipe(notify('buildTs finished'))
   .pipe(browserSync.reload({
     stream: true
   }));
-});
+}
+exports.ts = ts;

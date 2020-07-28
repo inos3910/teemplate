@@ -1,21 +1,15 @@
-import gulp          from 'gulp';
-import requireDir    from 'require-dir';
-//Tasks
-requireDir('./tasks', {recurse: true});
-//Default
-gulp.task('default', gulp.task('watch'));
+import gulp from 'gulp';
+import { watcher } from './tasks/watch';
+import { deleteCssDir, buildCss } from './tasks/css'
+import { deleteJsDistDir, buildJs, buildJsAll } from './tasks/js'
+import { deleteTsDistDir, ts } from './tasks/ts'
+import { browsersync } from './tasks/browsersync'
 
-//build
-gulp.task('build', gulp.series(
-  'delete:cssDir',
-  'delete:jsDistDir',
-  'build:css',
-  'build:js-all'
-  )
-);
-//TypeScript
-gulp.task('build-ts', gulp.series(
-  'clean:ts',
-  'build:ts'
-  )
-);
+//Default
+exports.default = gulp.series(watcher, browsersync);
+
+//build CSS&JS
+exports.build = gulp.series(deleteCssDir, deleteJsDistDir, buildCss, buildJsAll);
+
+//build TypeScript
+exports.buildTs = gulp.series(deleteTsDistDir, ts);

@@ -1,4 +1,3 @@
-//Task:css
 import gulp                     from 'gulp'
 import sass                     from 'gulp-sass'
 import nodesass                 from 'node-sass'
@@ -21,13 +20,11 @@ import assets                   from 'postcss-assets'
 import mqpacker                 from 'css-mqpacker'
 //cssを圧縮する
 import csso                     from 'gulp-csso'
-//ソースマップの生成
-import sourcemaps               from 'gulp-sourcemaps'
 //config
 import {paths, globs, browsers} from '../config'
-import diff                     from 'gulp-diff-build'
-import cache                    from 'gulp-cached'
-import progeny                  from 'gulp-progeny'
+// import diff                     from 'gulp-diff-build'
+// import cache                    from 'gulp-cached'
+// import progeny                  from 'gulp-progeny'
 import browserSync              from 'browser-sync'
 //@importのglobを有効にする
 import sassGlob                 from 'gulp-sass-glob'
@@ -35,46 +32,52 @@ import sassGlob                 from 'gulp-sass-glob'
 import del                      from 'del'
 
 //出力済みファイルを削除
-gulp.task('delete:cssDir', (cb) => {
-  return del([paths.cssDir], cb);
-});
+function deleteCssDir(done) {
+  return del([paths.cssDir], done);
+}
+exports.deleteCssDir = deleteCssDir;
 
-gulp.task('build:css', () => {
-  const processors = [
-  assets({
-    baseUrl     : `${paths.serverDir}/`,
-    basePath    : paths.themeDir,
-    loadPaths   : [
-    'assets/images/',
-    'assets/svg/',
-    ],
-    relative    : true,
-    cachebuster : true,
-  }),
-  cssnext({
-    browsers,
-    features : {
-      autoprefixer : {
-        grid: true
-      }
+const processors = [
+assets({
+  baseUrl     : `${paths.serverDir}/`,
+  basePath    : paths.themeDir,
+  loadPaths   : [
+  'assets/images/',
+  'assets/svg/',
+  ],
+  relative    : true,
+  cachebuster : true,
+}),
+cssnext({
+  browsers,
+  features : {
+    autoprefixer : {
+      grid: true
     }
-  }),
-  mqpacker({
-    sort: true
-  }),
-  flexBugsFixes,
-  cssImport({
-    path: [ 'node_modules' ]
+  }
+}),
+mqpacker({
+  sort: true
+}),
+flexBugsFixes,
+cssImport({
+  path: [ 'node_modules' ]
+})
+];
+
+function buildCss() {
+  return gulp.src(globs.sass, {
+    allowEmpty : true,
+    sourcemaps : true,
+    since      : gulp.lastRun(buildCss)
   })
-  ];
-  return gulp.src(globs.sass, { allowEmpty: true })
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>')
   }))
   .pipe(sassGlob())
-  .pipe(diff())
-  .pipe(cache('sass'))
-  .pipe(progeny())
+  // .pipe(diff())
+  // .pipe(cache('sass'))
+  // .pipe(progeny())
   .pipe(sass({
     outputStyle: 'expanded',
   }))
@@ -86,16 +89,17 @@ gulp.task('build:css', () => {
     debug        : true
   }))
   .pipe(postcss(processors))
-  .pipe(sourcemaps.init())
   .pipe(csso({
     restructure : false,
     sourceMap   : false,
     debug       : true
   }))
-  .pipe(sourcemaps.write('.'))
-  .pipe(gulp.dest(paths.cssDir))
-  .pipe(notify('css-build finished'))
+  .pipe(gulp.dest(paths.cssDir, {
+    sourcemaps : '.'
+  }))
+  .pipe(notify('buildCss finished'))
   .pipe(browserSync.reload({
     stream: true
   }));
-});
+}
+exports.buildCss = buildCss;

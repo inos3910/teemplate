@@ -9,8 +9,8 @@ import path            from 'path';
 import fs              from 'fs';
 import through         from 'through2';
 import vinyl           from 'vinyl';
-import diff            from 'gulp-diff-build';
-import cache           from 'gulp-cached';
+// import diff            from 'gulp-diff-build';
+// import cache           from 'gulp-cached';
 //webpackでファイル結合時に名前変更
 import named           from 'vinyl-named';
 import gulpif          from 'gulp-if';
@@ -22,9 +22,10 @@ import browserSync     from 'browser-sync';
 import del                      from 'del'
 
 //出力済みファイルを削除
-gulp.task('delete:jsDistDir', (cb) => {
-  return del([paths.jsDistDir], cb);
-});
+function deleteJsDistDir(done) {
+  return del([paths.jsDistDir], done);
+}
+exports.deleteJsDistDir = deleteJsDistDir;
 
 //処理中のファイル名を入れる
 let proccessings = [];
@@ -42,7 +43,7 @@ const isEntryFile = (file) => {
 }
 
 //ファイルの存在チェック
-function isExistFile(file) {
+const isExistFile = (file) => {
   try {
     fs.statSync(file);
     return true
@@ -52,12 +53,12 @@ function isExistFile(file) {
 }
 
 //バンドル実行中のファイルかどうか
-function isProccessing (filePath) {
+const isProccessing = (filePath) => {
   return (proccessings.indexOf(filePath) >= 0);
 }
 
 //entryファイルのみを次の処理に通す
-function passThroughEntry() {
+const passThroughEntry = () => {
   return through.obj(function (file, enc, cb) {
     if( file.isNull() ){
       cb(null,file);
@@ -89,7 +90,7 @@ function passThroughEntry() {
 }
 
 //bundleされたファイルのみを次の処理に通す
-function passThroughBundled() {
+const passThroughBundled = () => {
   proccessings = [];
   return through.obj(function (file, enc, cb) {
     if( file.isNull() ){
@@ -106,43 +107,45 @@ function passThroughBundled() {
   });
 }
 
-
-gulp.task('build:js', () => {
-  return gulp.src(globs.js, { allowEmpty: true })
+function buildJs() {
+  return gulp.src(globs.js, {
+    allowEmpty : true,
+    since      : gulp.lastRun(buildJs)
+  })
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>')
   }))
-  .pipe(diff())
+  //.pipe(diff())
   // .pipe(cache('js'))
   // .pipe(passThroughEntry())
   .pipe(named((file) => {
     return file.relative ? path.parse(file.relative).dir : 'code';
   }))
-  .pipe(
-    gulpif(isEntryFile, webpackStream(webpackConfig, webpack))
-    )
+  .pipe(gulpif(isEntryFile, webpackStream(webpackConfig, webpack)))
   .pipe(passThroughBundled())
   .pipe(gulp.dest(paths.jsDistDir))
-  .pipe(notify('js-build finished'))
+  .pipe(notify('buildJs finished'))
   .pipe(browserSync.reload({
     stream: true
   }));
-});
+}
+exports.buildJs = buildJs;
 
-gulp.task('build:js-all', () => {
-  return gulp.src(globs.entry, { allowEmpty: true })
+function buildJsAll() {
+  return gulp.src(globs.entry, {
+    allowEmpty: true
+  })
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>')
   }))
   .pipe(named((file) => {
     return file.relative ? path.parse(file.relative).dir : 'code';
   }))
-  .pipe(
-    gulpif(isEntryFile, webpackStream(webpackConfig, webpack))
-    )
+  .pipe(gulpif(isEntryFile, webpackStream(webpackConfig, webpack)))
   .pipe(gulp.dest(paths.jsDistDir))
   .pipe(notify('build:js-all finished'))
   .pipe(browserSync.reload({
     stream: true
   }));
-});
+}
+exports.buildJsAll = buildJsAll;

@@ -2,14 +2,14 @@
 import gulp            from 'gulp';
 import {globs, paths}  from '../config';
 //SVGの圧縮
-import svgmin          from 'gulp-svgmin';
+import _svgmin          from 'gulp-svgmin';
 
-gulp.task('svgmin', () => {
+function svgmin(){
   return gulp.src(globs.svg, {
     allowEmpty : true,
     since      : gulp.lastRun('svgmin')
   })
-  .pipe(svgmin({
+  .pipe(_svgmin({
     plugins: [
     { removeViewBox              : false },
     { removeUselessStrokeAndFill : false },
@@ -25,4 +25,5 @@ gulp.task('svgmin', () => {
     ]
   }))
   .pipe(gulp.dest(paths.svgminDir));
-});
+}
+exports.svgmin = svgmin;

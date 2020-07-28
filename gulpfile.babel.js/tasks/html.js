@@ -1,8 +1,7 @@
-//Task:build:js
-import gulp            from 'gulp';
-import browserSync     from 'browser-sync';
+import browserSync from 'browser-sync';
 
-gulp.task('reload:html', (done) => {
+function reload(done){
   browserSync.reload();
   done();
-});
+}
+exports.reload = reload;

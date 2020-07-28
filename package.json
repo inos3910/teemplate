@@ -15,7 +15,7 @@
         "sprite": "gulp sprite",
         "spritemin": "gulp spritemin",
         "build": "NODE_ENV=production gulp build",
-        "build:ts": "NODE_ENV=production gulp build-ts",
+        "build:ts": "NODE_ENV=production gulp buildTs",
         "tscheck": "yarn run tsc --noEmit && yarn run tslint",
         "tslint": "tslint --project tsconfig.json",
         "tslint-fix": "tslint --fix --project tsconfig.json"
