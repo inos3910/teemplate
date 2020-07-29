@@ -29,7 +29,7 @@
     </header>
     <!-- /.l-header -->
     <main class="l-main">
-      <div id="output"></div>
+      <div id="output">template</div>
     </main>
     <!-- /.l-main -->
     <footer class="l-footer">

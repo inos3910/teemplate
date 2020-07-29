@@ -1,4 +1,3 @@
-//Task:build:js
 import gulp            from 'gulp';
 import {globs, paths}  from '../config';
 //エラーでgulpが終了するのを止める
@@ -9,8 +8,8 @@ import path            from 'path';
 import fs              from 'fs';
 import through         from 'through2';
 import vinyl           from 'vinyl';
-// import diff            from 'gulp-diff-build';
-// import cache           from 'gulp-cached';
+import diff            from 'gulp-diff-build';
+//import cache           from 'gulp-cached';
 //webpackでファイル結合時に名前変更
 import named           from 'vinyl-named';
 import gulpif          from 'gulp-if';
@@ -115,7 +114,7 @@ function buildJs() {
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>')
   }))
-  //.pipe(diff())
+  .pipe(diff())
   // .pipe(cache('js'))
   // .pipe(passThroughEntry())
   .pipe(named((file) => {

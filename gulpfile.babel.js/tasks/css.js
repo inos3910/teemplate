@@ -22,9 +22,6 @@ import mqpacker                 from 'css-mqpacker'
 import csso                     from 'gulp-csso'
 //config
 import {paths, globs, browsers} from '../config'
-// import diff                     from 'gulp-diff-build'
-// import cache                    from 'gulp-cached'
-// import progeny                  from 'gulp-progeny'
 import browserSync              from 'browser-sync'
 //@importのglobを有効にする
 import sassGlob                 from 'gulp-sass-glob'
@@ -75,9 +72,6 @@ function buildCss() {
     errorHandler: notify.onError('<%= error.message %>')
   }))
   .pipe(sassGlob())
-  // .pipe(diff())
-  // .pipe(cache('sass'))
-  // .pipe(progeny())
   .pipe(sass({
     outputStyle: 'expanded',
   }))
