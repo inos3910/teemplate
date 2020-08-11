@@ -4,23 +4,23 @@ import { globs, paths } from '../config.js';
 //エラーでgulpが終了するのを止める
 import plumber from 'gulp-plumber';
 //画像圧縮
-import _imagemin from 'gulp-imagemin';
+import gulpImagemin from 'gulp-imagemin';
 import pngquant from 'imagemin-pngquant';
 import mozjpeg from 'imagemin-mozjpeg';
 //CSSスプライト
 import spritesmith from 'gulp.spritesmith';
 //webp生成
-import _webp from 'gulp-webp';
+import gulpWebp from 'gulp-webp';
 import rename from 'gulp-rename';
 
 //画像圧縮
 function imagemin() {
   return gulp.src(globs.img, {
     allowEmpty : true,
-    since      : gulp.lastRun('imagemin')
+    since      : gulp.lastRun(imagemin)
   })
   .pipe(plumber())
-  .pipe(_imagemin([
+  .pipe(gulpImagemin([
     pngquant({
       quality : [.8, .9],
       speed   : 1,
@@ -30,38 +30,27 @@ function imagemin() {
       quality     : 85,
       progressive : true
     }),
-    _imagemin.svgo(),
-    _imagemin.optipng(),
-    _imagemin.gifsicle()
+    gulpImagemin.svgo(),
+    gulpImagemin.optipng(),
+    gulpImagemin.gifsicle()
     ])
   )
-  .pipe(_imagemin())
+  .pipe(gulpImagemin())
   .pipe(gulp.dest(paths.imageminDir));
 }
 exports.imagemin = imagemin;
 
 //WebPへ変換
 function webp() {
-  let extension;
-  const arr = {};
   return gulp
   .src(globs.img,{
     allowEmpty : true,
-    since      : gulp.lastRun('webp')
+    since      : gulp.lastRun(webp)
   })
-  .pipe(
-    rename(path => {
-      arr[`${path.dirname}${path.basename}`] = path.extname;
-    })
-    )
-  .pipe(_webp())
-  .pipe(
-    rename(path => {
-      if (path.extname === '.webp') {
-        path.basename += arr[`${path.dirname}${path.basename}`];
-      }
-    })
-    )
+  // .pipe(rename((path) => {
+  //   path.basename += path.extname;
+  // }))
+  .pipe(gulpWebp())
   .pipe(gulp.dest(paths.imageDir));
 }
 exports.webp = webp;
@@ -70,15 +59,15 @@ exports.webp = webp;
 function sprite() {
   const spriteData = gulp.src(globs.sprite, {
     allowEmpty : true,
-    since      : gulp.lastRun('sprite')
+    since      : gulp.lastRun(sprite)
   })
   .pipe(spritesmith({
     imgName   : 'dest/sprite.png',
     cssName   : '_sprite.scss',
     imgPath   : `../sprite/dest/sprite.png`,
     cssFormat : 'scss',
-    cssVarMap : _sprite => {
-      _sprite.name = 'sprite-' + _sprite.name;
+    cssVarMap : s => {
+      s.name = 'sprite-' + s.name;
     }
   }));
   spriteData.img.pipe(gulp.dest(paths.spriteDir));
@@ -91,10 +80,10 @@ function spritemin(){
   return gulp
   .src(globs.sprites,{
     allowEmpty : true,
-    since      : gulp.lastRun('spritemin')
+    since      : gulp.lastRun(spritemin)
   })
   .pipe(plumber())
-  .pipe(_imagemin([
+  .pipe(gulpImagemin([
     pngquant({
       quality : [.8, .9],
       speed   : 1,
@@ -104,7 +93,7 @@ function spritemin(){
       quality     : 90,
       progressive : true
     }),
-    _imagemin.optipng()
+    gulpImagemin.optipng()
     ])
   )
   .pipe(gulp.dest(paths.spriteminDir));

@@ -9,7 +9,7 @@ import fs              from 'fs';
 import through         from 'through2';
 import vinyl           from 'vinyl';
 import diff            from 'gulp-diff-build';
-//import cache           from 'gulp-cached';
+import cache           from 'gulp-cached';
 //webpackでファイル結合時に名前変更
 import named           from 'vinyl-named';
 import gulpif          from 'gulp-if';
@@ -108,14 +108,13 @@ const passThroughBundled = () => {
 
 function buildJs() {
   return gulp.src(globs.js, {
-    allowEmpty : true,
-    since      : gulp.lastRun(buildJs)
+    allowEmpty : true
   })
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>')
   }))
   .pipe(diff())
-  // .pipe(cache('js'))
+  .pipe(cache('js'))
   // .pipe(passThroughEntry())
   .pipe(named((file) => {
     return file.relative ? path.parse(file.relative).dir : 'code';
