@@ -3,5 +3,5 @@ import common     from './webpack.common.js'
 
 module.exports = merge(common, {
   mode     : 'development',
-  devtool  : 'cheap-module-eval-source-map',
+  devtool  : 'eval-cheap-module-source-map'
 });

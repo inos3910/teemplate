@@ -114,7 +114,7 @@ function buildJs() {
     errorHandler: notify.onError('<%= error.message %>')
   }))
   .pipe(diff())
-  .pipe(cache('js'))
+  //.pipe(cache('js'))
   // .pipe(passThroughEntry())
   .pipe(named((file) => {
     return file.relative ? path.parse(file.relative).dir : 'code';

@@ -4,9 +4,11 @@ require('intersection-observer');
 
 export class Utils {
   constructor() {
-    this.win   = $(window);
-    this.doc   = $(document);
-    this.body  = $('body');
+    this.win     = $(window);
+    this.doc     = $(document);
+    this.body    = $('body');
+    this.html    = $('html');
+    this.isTouch = this.isTouchDevice();
 
     this.default();
   }
@@ -20,11 +22,21 @@ export class Utils {
     this.setIntersectionObserver();
   }
 
+  //タッチデバイス判定
+  isTouchDevice() {
+    const isTouch  = ('ontouchstart' in document) && ('orientation' in window);
+    const isSp     = this.isSp();
+    const isTablet = this.isTablet();
+    return isTouch && (isSp || isTablet);
+  }
+
   //lazysizes
   lazyload() {
-    lazySizes.cfg.throttleDelay = 66;
-    lazySizes.cfg.loadMode  = 2;
-    lazySizes.cfg.expFactor = 3;
+    if (typeof lazySizes != 'undefined') {
+      lazySizes.cfg.throttleDelay = 66;
+      lazySizes.cfg.loadMode  = 2;
+      lazySizes.cfg.expFactor = 3;
+    }
   }
 
   //css object-fit polyfill
@@ -85,39 +97,6 @@ export class Utils {
     return isIE;
   }
 
-  /**
-  * タッチイベント制御
-  * @param {function} func - 関数
-  * @param {Object} event - eventオブジェクト
-  * @param {Object} $elem - jQueryオブジェクト
-  * @param {Object} arg - 実行する関数の引数
-  **/
-  touchEvent(func, event, $elem, arg) {
-    if ('touchstart' === event.type) {
-      $elem.attr('data-touchstarted', '');
-      return;
-    }
-    if ('touchmove' === event.type) {
-      $elem.removeAttr('data-touchstarted');
-      return;
-    }
-    if ('undefined' !== typeof $elem.attr('data-touchstarted')) {
-      this[func](event, $elem, arg);
-      $elem.removeAttr('data-touchstarted');
-    }
-  }
-
-  /*
-  * 関数をDeferredで実行
-  * @param func {Function} 関数
-  */
-  promise(func) {
-    const d = new $.Deferred();
-    const result = func();
-    d.resolve(result);
-    return d.promise();
-  }
-
   /*
   * ターゲット位置へのスクロールアニメーション
   * @param {Object} target ターゲット要素
@@ -164,55 +143,44 @@ export class Utils {
   /*
   * アンカースクロール
   * @param {Object} e イベントオブジェクト
+  * @param {Function} cb コールバック関数
   */
-  anchorScroll(e) {
+  anchorScroll(e, cb = null) {
+    const $target = $(e.currentTarget.hash);
+    if(!$target[0]){
+      return;
+    }
+
+    if(e.cancelable){
+      e.preventDefault();
+    }
     e.stopPropagation();
-    e.preventDefault();
-    const selecter = $(e.currentTarget).attr('href');
-    const target   = selecter === '#' ? 'html, body' : selecter;
-    this.scrollTo(target, 800);
+    this.scrollTo($target, 800);
+    if(cb){
+      cb();
+    }
   }
 
-  //lazyloadを全て適用
-  lazysizesUnveil() {
-    return new Promise(resolve => {
-      if(typeof lazySizes == 'undefined'){
-        resolve();
-      }
-      const $imgs = Array.from(document.querySelectorAll('.lazyload'));
-      const count = $imgs.length;
-      if(!count){
-        resolve();
-      }
-      $imgs.forEach((img, i) => {
-        lazySizes.loader.unveil(img);
-        if(i+1 === count){
-          const timer = setTimeout(() => {
-            resolve();
-            clearTimeout(timer);
-          }, 100);
-        }
-      });
-    });
-  }
 
   //画面内の位置で要素を出現させるエフェクト
-  setIntersectionObserver(){
+  setIntersectionObserver(elems = null){
+    const _elems = elems ? elems : document.querySelectorAll('.is-ev');
     const options = {
       threshold: 0
     }
 
     const callback = (entries, observer) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-effect');
-        }
-      });
+       if (entry.isIntersecting) {
+         entry.target.classList.add('is-effect');
+         observer.unobserve(entry.target);
+       }
+     });
     }
 
     const observer  = new IntersectionObserver(callback, options);
 
-    const observers = Array.from(document.querySelectorAll('.is-ev'));
+    const observers = Array.from(_elems);
     observers.forEach(el => {
       observer.observe(el);
     });

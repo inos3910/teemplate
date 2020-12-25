@@ -15,12 +15,9 @@ $boxshadow2 : 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 $boxshadow3 : 0 3px 3px 0 rgba(#000, .15);
 
 //fonts
-$mincho      : "Noto Serif JP", "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
-$gothic      : 'Noto Sans JP', MyYuGothicM, YuGothic, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
-$gothic2     : MyYuGothicM, YuGothic, -apple-system, BlinkMacSystemFont, Avenir, "Open Sans", "Helvetica Neue", Helvetica, Arial, Verdana, Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-$gothic3     : Hiragino Sans, MyYuGothicM, YuGothic, -apple-system, BlinkMacSystemFont, Avenir, "Open Sans", "Helvetica Neue", Helvetica, Arial, Verdana, Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+$gothic     : Hiragino Sans, MyYuGothicM, YuGothic, -apple-system, BlinkMacSystemFont, Avenir, "Open Sans", "Helvetica Neue", Helvetica, Arial, Verdana, Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
 $ie-font     : 'Segoe UI', Meiryo, sans-serif;
-$font-family : $gothic3;
+$font-family : $gothic;
 
 //breakpoint
 $bp_i5    : 320px;
@@ -87,4 +84,4 @@ $ease-out-back:cubic-bezier(0.175, 0.885, 0.32, 1.275);
 $ease-in-out-back:cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 //others
-$transition : .2s $ease-out-sine;
+$transition : .3s $ease-out-sine;

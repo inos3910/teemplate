@@ -10,7 +10,7 @@ const filenames = fs.readdirSync(cd);
 let serverDirName = path.basename(path.join(__dirname, '../'));
 
 //functions.phpの有無でWordPressか判定
-const is_wp = filenames.indexOf('functions.php') !== -1;
+const is_wp = filenames.indexOf('functions.php') !== -1 && filenames.indexOf('style.css') !== -1;
 if(is_wp){
   serverDirName = path.basename(path.join(cd, '../../../'));
 }
