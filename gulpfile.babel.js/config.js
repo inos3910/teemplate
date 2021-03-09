@@ -40,6 +40,7 @@ export const globs = {
   html    : `${paths.themeDir}**/*.(html|php)`,
   svg     : `${paths.svgDir}/**/*.svg`,
   img     : `${paths.imageDir}/**/*.+(jpg|jpeg|png|gif|svg)`,
+  toWebp  : `${paths.imageDir}/**/*.+(jpg|jpeg|png)`,
   sprite  : `${paths.spriteDir}/*.+(jpg|jpeg|png)`,
   sprites : `${paths.spriteDir}/**/*.+(jpg|jpeg|png)`,
   sass    : `${paths.sassDir}/**/*.scss`,

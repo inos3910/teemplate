@@ -43,7 +43,7 @@ exports.imagemin = imagemin;
 //WebPへ変換
 function webp() {
   return gulp
-  .src(globs.img,{
+  .src(globs.toWebp,{
     allowEmpty : true,
     since      : gulp.lastRun(webp)
   })
