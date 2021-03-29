@@ -3,6 +3,18 @@
   @return (($size / $base) * 100#{$unit});
 }
 
+@function vw-size($size, $base) {
+  @return (($size / $base) * 100vw);
+}
+
+@function vw-size-pc($size) {
+  @return (($size / $w) * 100vw);
+}
+
+@function vw-size-sp($size) {
+  @return (($size / $w_sp) * 100vw);
+}
+
 /// Replace `$search` with `$replace` in `$string`
 /// @author Hugo Giraudel
 /// @param {String} $string - Initial string
