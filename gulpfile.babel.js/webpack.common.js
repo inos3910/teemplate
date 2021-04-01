@@ -33,6 +33,7 @@ module.exports = {
     //Rellax           : 'rellax'
   })
   ],
+  target: ['web', 'es5'],
   module: {
     rules: [
     {
