@@ -1,11 +1,11 @@
 # フロント開発環境
 
 ## 環境
-- gulp 4.x
+- gulp 4.0.2
   - sassコンパイル
   - image 圧縮
   - svg 最適化
-- webpack 4.x
+- webpack 5.9
   - js バンドル 圧縮 最適化
 - babel 7.x
   - js es6最適化
