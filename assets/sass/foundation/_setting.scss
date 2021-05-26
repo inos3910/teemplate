@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../global" as global;
+
 html {
   min-height: 100vh;
   touch-action: manipulation;
@@ -11,8 +14,8 @@ html {
 
 body {
   min-height: 100vh;
-  font-size: sizeCalc(24, $w_sp, 'vw');
-  font-family: $font-family;
+  font-size: global.sizeCalc(24, global.$w_sp, 'vw');
+  font-family: global.$font-family;
   font-weight: 400;
   font-kerning: normal;
   color: #000;
@@ -23,10 +26,10 @@ body {
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: unset;
   text-rendering: optimizeSpeed;
-  @include min-screen($bp_tb_v){
-    font-size: sizeCalc(12, $w, 'vw');
+  @include global.min-screen(global.$bp_tb_v){
+    font-size: global.sizeCalc(12, global.$w, 'vw');
   }
-  @include min-screen($bp_base){
+  @include global.min-screen(global.$bp_base){
     font-size: 12px;
   }
 
@@ -35,26 +38,25 @@ body {
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* IE8〜11はメイリオ */
   @media screen\0 {
-    font-family: $ie-font;
+    font-family: global.$ie-font;
   }
 }
 
 a {
   text-decoration: none;
-  color: $link-color;
-  transition: $transition;
+  color: global.$link-color;
+  transition: global.$transition;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   &[href^="tel"] {
-    @include min-screen($bp_tb_v) {
+    @include global.min-screen(global.$bp_tb_v) {
       pointer-events: none;
-      cursor:default;
+      cursor: default;
     }
   }
   img {
-    transition: $transition;
+    transition: global.$transition;
   }
 }
 
@@ -62,7 +64,7 @@ input,
 select,
 textarea,
 button {
-  cursor:pointer;
+  cursor: pointer;
   appearance: none;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
@@ -72,7 +74,7 @@ button {
   border: none;
   outline: none;
   border-radius: 0;
-  transition: $transition;
+  transition: global.$transition;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-font-smoothing: subpixel-antialiased;
@@ -81,16 +83,15 @@ button {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  @include placeholder {
-    font-family: $font-family;
+  @include global.placeholder {
+    font-family: global.$font-family;
   }
   &:disabled {
     cursor: default;
   }
 
-  /* IE8〜11はメイリオ */
   @media screen\0 {
-    font-family: $ie-font;
+    font-family: global.$ie-font;
   }
 }
 

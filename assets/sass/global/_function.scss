@@ -1,18 +1,20 @@
+@use "sass:math";
+@use "./variable" as v;
 //function *********************//
 @function sizeCalc($size, $base, $unit) {
-  @return (($size / $base) * 100#{$unit});
+  @return math.div($size, $base) * 100#{$unit};
 }
 
 @function vw-size($size, $base) {
-  @return (($size / $base) * 100vw);
+  @return (math.div($size, $base) * 100vw);
 }
 
 @function vw-size-pc($size) {
-  @return (($size / $w) * 100vw);
+  @return (math.div($size, v.$w) * 100vw);
 }
 
 @function vw-size-sp($size) {
-  @return (($size / $w_sp) * 100vw);
+  @return (math.div($size, v.$w_sp) * 100vw);
 }
 
 /// Replace `$search` with `$replace` in `$string`
@@ -36,7 +38,7 @@
 /// @return {Number} - Unitless number
 @function strip-unit($number) {
   @if type-of($number) == 'number' and not unitless($number) {
-    @return $number / ($number * 0 + 1);
+    @return math.div($number, ($number * 0 + 1));
   }
 
   @return $number;

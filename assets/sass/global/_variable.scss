@@ -1,3 +1,5 @@
+@use "sass:math";
+@use "sass:color";
 //variable ****/
 //prototype color
 $trend2020  : #0f4c81;
@@ -37,7 +39,7 @@ $bp_base  : 1440px;
 $w          : 1440;
 $w_sp       : 750;
 $frame_w    : 1240;
-$frame      : ($frame_w / $w * 100vw);
+$frame      : (math.div($frame_w, $w) * 100vw);
 
 //retina
 $retina : "only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx)";

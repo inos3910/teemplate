@@ -1,4 +1,6 @@
-@include keyframes (Fade) {
+@use "../../global" as global;
+
+@include global.keyframes (Fade) {
   0% {
     opacity: 0;
   }

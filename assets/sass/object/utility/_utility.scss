@@ -1,12 +1,14 @@
+@use "../../global" as global;
+
 .u-frame{
-  @include min-screen($bp_tb_v){
-    max-width:calc(100% - #{sizeCalc(200, $w, vw)});
-    margin-right:auto;
-    margin-left:auto;
+  @include global.min-screen(global.$bp_tb_v){
+    max-width: calc(100% - #{global.sizeCalc(200, global.$w, 'vw')});
+    margin-right: auto;
+    margin-left: auto;
   }
 
-  @include min-screen($bp_base){
-    max-width:#{$frame_w}px;
+  @include global.min-screen(global.$bp_base){
+    max-width:#{global.$frame_w}px;
   }
 }
 
@@ -25,13 +27,13 @@
 
 .u-exSp {
   display: none;
-  @include min-screen($bp_tb_v){
+  @include global.min-screen(global.$bp_tb_v){
     display: block;
   }
 }
 
 .u-sp{
-  @include min-screen($bp_tb_v){
+  @include global.min-screen(global.$bp_tb_v){
     display: none;
   }
 }

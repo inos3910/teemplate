@@ -1,6 +1,8 @@
+@use "../global" as global;
+
 .l-cover {
-  @include min-screen($bp_tb_v){
+  @include global.min-screen(global.$bp_tb_v){
   }
-  @include min-screen($bp_base){
+  @include global.min-screen(global.$bp_base){
   }
 }

@@ -1,7 +1,9 @@
+@use "sass:math";
+@use "./variable" as v;
 //mixin *********************//
 //line-height
 @mixin lh($fontSize, $lineSpacing) {
-  line-height: $lineSpacing/$fontSize;
+  line-height: math.div($lineSpacing, $fontSize);
 }
 
 @mixin line-clamp($num) {
@@ -41,7 +43,7 @@
 //font-size
 @mixin fz($size) {
   font-size:($size)+px;
-  font-size:($size/10)+rem;
+  font-size: math.div($size, 10)+rem;
 }
 
 //animation
@@ -88,18 +90,18 @@
     color: $color;
   }
   &::-webkit-input-placeholder {
-    color:$color;
+    color: $color;
   }
   &:-moz-placeholder {
-    color:$color;
+    color: $color;
     opacity: 1;
   }
   &::-moz-placeholder {
-    color:$color;
+    color: $color;
     opacity: 1;
   }
   &:-ms-input-placeholder {
-    color:$color;
+    color: $color;
   }
 }
 
@@ -127,7 +129,7 @@
 //retina bg
 @mixin retina-bg($file, $type) {
   background-image: resolve('#{$file}.#{$type}');
-  @media #{$retina} {
+  @media #{v.$retina} {
     background-image: resolve('#{$file}@2x.#{$type}');
   }
 }
@@ -138,31 +140,10 @@
   url('#{$file2}.#{$type2}')
   ;
 
-  @media #{$retina} {
+  @media #{v.$retina} {
     background-image:
     url('#{$file1}@2x.#{$type1}'),
     url('#{$file2}@2x.#{$type2}')
     ;
   }
-}
-
-/**
-* スプライト画像のサイズ・位置をパーセント指定して出力
-* @param {String} $sprite スプライト画像の変数
-**/
-@mixin sprite-size($sprite){
-  $totalW  : strip-unit(nth($sprite, 7));
-  $totalH  : strip-unit(nth($sprite, 8));
-  $bgW     : strip-unit(nth($sprite, 5));
-  $bgH     : strip-unit(nth($sprite, 6));
-  $bgX     : strip-unit(nth($sprite, 1));
-  $bgY     : strip-unit(nth($sprite, 2));
-  $bgsizeW : $totalW / $bgW * 100%;
-  $bgsizeH : $totalH / $bgH * 100%;
-  $bgPosX  : $bgX / ($totalW - $bgW) * 100%;
-  $bgPosY  : $bgY / ($totalH - $bgH) * 100%;
-
-  @include sprite-image($sprite);
-  background-size:($totalW / $bgW * 100%);
-  background-position: $bgPosX $bgPosY;
 }

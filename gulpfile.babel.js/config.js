@@ -49,14 +49,5 @@ export const globs = {
   entry   : `${paths.jsSrcDir}/**/entry.js`
 }
 
-//CSS対応ブラウザのバージョン
-export const browsers = [
-'> 5% in JP',
-'last 2 versions',
-'ie >= 11',
-'Android >= 4',
-'iOS >= 8'
-]
-
-const config = { paths, globs, browsers }
+const config = { paths, globs }
 export default config

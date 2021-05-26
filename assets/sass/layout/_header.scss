@@ -1,8 +1,9 @@
-.l-header {
-  @include min-screen($bp_tb_v){
-  }
+@use "../global" as global;
 
-  @include min-screen($bp_base){
+.l-header {
+  @include global.min-screen(global.$bp_tb_v){
+  }
+  @include global.min-screen(global.$bp_base){
   }
 }
 
