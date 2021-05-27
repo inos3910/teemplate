@@ -4,27 +4,26 @@ export class Main extends Utils {
     super();
   }
 
- /*
-  * メニュー開閉
-  */
+  /*
+   * メニュー開閉
+   */
   toggleMenu() {
     this.html.toggleClass('is-menu-active');
   }
 
   /*
-  * メニュー開く
-  */
+   * メニュー開く
+   */
   openMenu() {
     this.html.addClass('is-menu-active');
   }
 
   /*
-  * メニュー閉じる
-  */
+   * メニュー閉じる
+   */
   closeMenu() {
     this.html.removeClass('is-menu-active');
   }
-
 }
 
 export default Main;
