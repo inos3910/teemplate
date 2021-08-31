@@ -1,5 +1,5 @@
 @use "sass:color";
-@use "../global" as global;
+@use "../global" as g;
 
 html {
   min-height: 100vh;
@@ -14,8 +14,8 @@ html {
 
 body {
   min-height: 100vh;
-  font-size: global.sizeCalc(24, global.$w_sp, 'vw');
-  font-family: global.$font-family;
+  font-size: g.sizeCalc(24, g.$w_sp, 'vw');
+  font-family: g.$font-family;
   font-weight: 400;
   font-kerning: normal;
   color: #000;
@@ -26,10 +26,10 @@ body {
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: unset;
   text-rendering: optimizeSpeed;
-  @include global.min-screen(global.$bp_tb_v){
-    font-size: global.sizeCalc(12, global.$w, 'vw');
+  @include g.min-screen(g.$bp_tb_v){
+    font-size: g.sizeCalc(12, g.$w, 'vw');
   }
-  @include global.min-screen(global.$bp_base){
+  @include g.min-screen(g.$bp_base){
     font-size: 12px;
   }
 
@@ -39,24 +39,24 @@ body {
   }
 
   @media screen\0 {
-    font-family: global.$ie-font;
+    font-family: g.$ie-font;
   }
 }
 
 a {
   text-decoration: none;
-  color: global.$link-color;
-  transition: global.$transition;
+  color: g.$link-color;
+  transition: g.$transition;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   &[href^="tel"] {
-    @include global.min-screen(global.$bp_tb_v) {
+    @include g.min-screen(g.$bp_tb_v) {
       pointer-events: none;
       cursor: default;
     }
   }
   img {
-    transition: global.$transition;
+    transition: g.$transition;
   }
 }
 
@@ -74,7 +74,7 @@ button {
   border: none;
   outline: none;
   border-radius: 0;
-  transition: global.$transition;
+  transition: g.$transition;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-font-smoothing: subpixel-antialiased;
@@ -83,15 +83,15 @@ button {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  @include global.placeholder {
-    font-family: global.$font-family;
+  @include g.placeholder {
+    font-family: g.$font-family;
   }
   &:disabled {
     cursor: default;
   }
 
   @media screen\0 {
-    font-family: global.$ie-font;
+    font-family: g.$ie-font;
   }
 }
 

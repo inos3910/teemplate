@@ -22,18 +22,14 @@ $ie-font     : 'Segoe UI', Meiryo, sans-serif;
 $font-family : $gothic;
 
 //breakpoint
-$bp_i5    : 320px;
-$bp_i6    : 375px;
-$bp_i6p   : 414px;
-$bp_sp_h  : 568px;
-$bp_tb_v  : 801px;
-$bp_tb_h  : 980px;
-$bp_pc    : 1080px;
-$bp_lpc   : 1280px;
-$bp_xlpc  : 1440px;
-$bp_WSXGA : 1680px;
-$bp_WUXGA : 1920px;
-$bp_base  : 1440px;
+$breakpoints: (
+  'xs': (min-width: 0),
+  'sm': (min-width: 576px),
+  'md': (min-width: 801px),
+  'lg': (min-width: 980px),
+  'xl': (min-width: 1280px),
+  'xxl': (min-width: 1440px)
+  ) !default;
 
 //base size
 $w          : 1440;

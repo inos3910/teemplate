@@ -2,7 +2,7 @@
 @use "./variable" as v;
 //function *********************//
 @function sizeCalc($size, $base, $unit) {
-  @return math.div($size, $base) * 100#{$unit};
+  @return (math.div($size, $base) * 100) + #{$unit};
 }
 
 @function vw-size($size, $base) {

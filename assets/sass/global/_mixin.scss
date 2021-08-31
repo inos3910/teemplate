@@ -1,6 +1,19 @@
 @use "sass:math";
 @use "./variable" as v;
-//mixin *********************//
+
+@mixin responsive($breakpoint) {
+  @if map-has-key(v.$breakpoints, $breakpoint) {
+    @media screen and #{inspect(map-get(v.$breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+
+  // マップ型で定義されていない値が呼び出された時はエラーを返す
+  @else {
+    @error "指定されたブレークポイントは定義されていません。" + "指定できるブレークポイントは次のとおりです。 -> #{map-keys(v.$breakpoints)}";
+  }
+}
+
 //line-height
 @mixin lh($fontSize, $lineSpacing) {
   line-height: math.div($lineSpacing, $fontSize);
