@@ -1,8 +1,8 @@
 @use "../global" as g;
 
 .l-main{
-  @include g.min-screen(g.$bp_tb_v){
+  @include g.responsive(md) {
   }
-  @include g.min-screen(g.$bp_base){
+  @include g.responsive(xxl) {
   }
 }

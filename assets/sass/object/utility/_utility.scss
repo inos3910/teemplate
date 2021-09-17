@@ -1,13 +1,13 @@
 @use "../../global" as g;
 
 .u-frame{
-  @include g.min-screen(g.$bp_tb_v){
-    max-width: calc(100% - #{g.vw-size-pc(100)});
+  @include g.responsive(md) {
+    max-width: g.vw-size-pc(g.$frame_w);
     margin-right: auto;
     margin-left: auto;
   }
 
-  @include g.min-screen(g.$bp_base){
+  @include g.responsive(xxl) {
     max-width:#{g.$frame_w}px;
   }
 }
@@ -27,28 +27,18 @@
 
 .u-exSp {
   display: none;
-  @include g.min-screen(g.$bp_tb_v){
+  @include g.responsive(md) {
     display: block;
   }
 }
 
 .u-sp{
-  @include g.min-screen(g.$bp_tb_v){
+  @include g.responsive(md) {
     display: none;
-  }
-}
-
-.u-preload{
-  * {
-    transition: none !important;
   }
 }
 
 .u-preline{
   white-space: pre-line;
-}
-
-.u-helvetica{
-  font-family: 'Helvetica Neue', sans-serif;
 }
 
