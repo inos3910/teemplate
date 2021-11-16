@@ -45,9 +45,9 @@ function webp() {
     allowEmpty : true,
     since      : gulp.lastRun(webp)
   })
-  // .pipe(rename((path) => {
-  //   path.basename += path.extname;
-  // }))
+  .pipe(rename((path) => {
+    path.basename += path.extname;
+  }))
   .pipe(gulpWebp())
   .pipe(gulp.dest(paths.imageDir));
 }

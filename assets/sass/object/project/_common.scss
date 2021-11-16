@@ -1,6 +1,6 @@
-@use "../global" as *;
+@use "../../global" as *;
 
-.l-footer {
+.p-common{
   @include responsive(md) {
   }
   @include responsive(xl) {

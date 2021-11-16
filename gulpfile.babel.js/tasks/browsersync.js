@@ -1,4 +1,4 @@
-import {paths}     from '../config';
+import {paths} from '../config';
 import browserSync from 'browser-sync';
 
 function browsersync(done) {
@@ -9,3 +9,11 @@ function browsersync(done) {
   done();
 }
 exports.browsersync = browsersync;
+
+function browsersyncStream(done){
+  browserSync.reload({
+    stream: true
+  });
+  done();
+}
+exports.browsersyncStream = browsersyncStream;

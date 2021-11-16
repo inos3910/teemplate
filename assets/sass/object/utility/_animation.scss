@@ -1,10 +1,7 @@
-@use "../../global" as g;
+@use "../../global" as *;
 
-@include g.keyframes (Fade) {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
+@include keyframes (Spin) {
+  to {
+    transform: rotate(360deg);
   }
 }

@@ -3,21 +3,27 @@ import EncodingPlugin         from 'webpack-encoding-plugin'
 import path                   from 'path'
 import {paths}                from './config.js'
 
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   cache    : true,
   output   : {
     filename : '[name].bundle.js',
   },
-  // optimization: {
-  //   splitChunks: {
-  //     name   : 'vendor',
-  //     chunks : 'initial',
-  //   }
+  optimization: {
+    splitChunks: {
+      name   : 'vendor',
+      // chunks (chunk) {
+      //   return chunk.name !== 'admin-store-update';
+      // },
+      chunks : 'initial',
+    }
+  },
+  // externals: {
+  //   swiper: 'Swiper',
   // },
   plugins  : [
-  //new BundleAnalyzerPlugin(),
+  // new BundleAnalyzerPlugin(),
   new webpack.optimize.AggressiveMergingPlugin(),
   new EncodingPlugin({
     encoding: 'utf-8'
@@ -25,10 +31,10 @@ module.exports = {
   new webpack.ProvidePlugin({
     $                : 'jquery/dist/jquery',
     jQuery           : 'jquery/dist/jquery',
-    objectFitImages  : 'object-fit-images',
-    anime            : ['animejs/lib/anime.es.js', 'default'],
+    // objectFitImages  : 'object-fit-images',
+    // anime            : ['animejs/lib/anime.es.js', 'default'],
     //lazySizes        : 'lazysizes',
-    picturefill      : 'picturefill',
+    // picturefill      : 'picturefill',
     // Barba            : 'barba.js',
     //Rellax           : 'rellax'
   })

@@ -1,5 +1,5 @@
 @use "sass:math";
-@use "./variable" as v;
+@use "./variable" as *;
 //function *********************//
 @function sizeCalc($size, $base, $unit) {
   @return (math.div($size, $base) * 100) + #{$unit};
@@ -10,11 +10,11 @@
 }
 
 @function vw-size-pc($size) {
-  @return (math.div($size, v.$w) * 100vw);
+  @return (math.div($size, $w) * 100vw);
 }
 
 @function vw-size-sp($size) {
-  @return (math.div($size, v.$w_sp) * 100vw);
+  @return (math.div($size, $w_sp) * 100vw);
 }
 
 /// Replace `$search` with `$replace` in `$string`

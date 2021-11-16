@@ -1,16 +1,16 @@
 @use "sass:math";
-@use "./variable" as v;
+@use "./variable" as *;
 
 @mixin responsive($breakpoint) {
-  @if map-has-key(v.$breakpoints, $breakpoint) {
-    @media screen and #{inspect(map-get(v.$breakpoints, $breakpoint))} {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and #{inspect(map-get($breakpoints, $breakpoint))} {
       @content;
     }
   }
 
   // マップ型で定義されていない値が呼び出された時はエラーを返す
   @else {
-    @error "指定されたブレークポイントは定義されていません。" + "指定できるブレークポイントは次のとおりです。 -> #{map-keys(v.$breakpoints)}";
+    @error "指定されたブレークポイントは定義されていません。" + "指定できるブレークポイントは次のとおりです。 -> #{map-keys($breakpoints)}";
   }
 }
 
@@ -142,7 +142,7 @@
 //retina bg
 @mixin retina-bg($file, $type) {
   background-image: resolve('#{$file}.#{$type}');
-  @media #{v.$retina} {
+  @media #{$retina} {
     background-image: resolve('#{$file}@2x.#{$type}');
   }
 }
@@ -153,7 +153,7 @@
   url('#{$file2}.#{$type2}')
   ;
 
-  @media #{v.$retina} {
+  @media #{$retina} {
     background-image:
     url('#{$file1}@2x.#{$type1}'),
     url('#{$file2}@2x.#{$type2}')

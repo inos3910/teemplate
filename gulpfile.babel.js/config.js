@@ -11,8 +11,8 @@ let serverDirName = path.basename(path.join(__dirname, '../'));
 
 //functions.phpの有無でWordPressか判定
 const is_wp =
-  filenames.indexOf('functions.php') !== -1 &&
-  filenames.indexOf('style.css') !== -1;
+filenames.indexOf('functions.php') !== -1 &&
+filenames.indexOf('style.css') !== -1;
 if (is_wp) {
   serverDirName = path.basename(path.join(cd, '../../../'));
 }
@@ -24,8 +24,6 @@ export const paths = {
   assetsDir: path.join(__dirname, '../assets'),
   imageDir: path.join(__dirname, '../assets/images'),
   imageminDir: path.join(__dirname, '../assets/imagemin'),
-  spriteDir: path.join(__dirname, '../assets/sprite'),
-  spriteminDir: path.join(__dirname, '../assets/spritemin'),
   jsSrcDir: path.join(__dirname, '../assets/js'),
   jsDistDir: path.join(__dirname, '../assets/dist'),
   tsSrcDir: path.join(__dirname, '../assets/ts'),
@@ -43,8 +41,6 @@ export const globs = {
   svg: `${paths.svgDir}/**/*.svg`,
   img: `${paths.imageDir}/**/*.+(jpg|jpeg|png|gif|svg)`,
   toWebp: `${paths.imageDir}/**/*.+(jpg|jpeg|png)`,
-  sprite: `${paths.spriteDir}/*.+(jpg|jpeg|png)`,
-  sprites: `${paths.spriteDir}/**/*.+(jpg|jpeg|png)`,
   sass: `${paths.sassDir}/**/*.scss`,
   js: `${paths.jsSrcDir}/**/*.+(js|vue)`,
   ts: `${paths.tsSrcDir}/**/*.ts`,

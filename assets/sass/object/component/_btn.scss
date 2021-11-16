@@ -1,0 +1,13 @@
+@use "../../global" as *;
+
+.c-btn{
+  @include responsive(md) {
+  }
+  @include responsive(xl) {
+  }
+
+  @media (any-hover:hover) {
+    &:hover{
+    }
+  }
+}

@@ -1,8 +1,8 @@
-@use "../global" as g;
+@use "../global" as *;
 
 .l-cover {
-  @include g.responsive(md) {
+  @include responsive(md) {
   }
-  @include g.responsive(xxl) {
+  @include responsive(xl) {
   }
 }

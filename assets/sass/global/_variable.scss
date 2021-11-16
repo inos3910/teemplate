@@ -1,24 +1,53 @@
 @use "sass:math";
 @use "sass:color";
 //variable ****/
-//prototype color
-$trend2020  : #0f4c81;
-$black      : #333;
-$green      : #d4f464;
+$black      : #1b1b1b;
+// $green      : #11acac;
+$green      : #01a1a1;
+$dgreen     : #2f4846;
+$lgreen     : #e7f7f7;
+$lgreen2    : #b2d5db;
+$yellow     : #fff600;
+$yellow2    : #f6f07a;
 $blue       : #25bdcf;
-$lgray      : #eee;
-$gray       : #ccc;
+$blue2      : #299fc8;
+$lblue      : #e7f7f7;
+$lgray      : #f7f7f7;
+$lgray2     : #e5e5e5;
+$gray       : #dcdcdc;
+$gray2      : #757575;
 $dgray      : #555;
-$link-color : $blue;
+// $red        : #e63a3a;
+$red        : #e30505;
+$brown      : #652502;
+$lbrown     : #f1e5de;
+$line       : #00c300;
+
+$key-color : $green;
+$bg-color : $lgray;
+$caption-color : $black;
+$contents-bg-color : #fff;
+$contents-text-color : $black;
+$notice-text-color : $gray2;
+$link-color : $dgreen;
+$border-color : $gray;
+$blue-border-color : $lgreen2;
+$marker-color : $yellow;
+$price-color : $red;
+
 
 //shadow
-$boxshadow1 : 0px 1px 3px 0px rgba(#000, .15);
-$boxshadow2 : 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+$boxshadow1 : 0px 3px 15px 0px rgba(0, 0, 0, 0.05);
+$boxshadow2 : 0 14px 28px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.08);
 $boxshadow3 : 0 3px 3px 0 rgba(#000, .15);
+$boxshadow4 : 0 14px 28px -14px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.08);
 
 //fonts
-$gothic     : Hiragino Sans, MyYuGothicM, YuGothic, -apple-system, BlinkMacSystemFont, Avenir, "Open Sans", "Helvetica Neue", Helvetica, Arial, Verdana, Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+$gothic     : YakuHanJP, Roboto, Helvetica Neue, Helvetica, Hiragino Sans, MyYuGothicM, YuGothic, -apple-system, BlinkMacSystemFont, Avenir, Open Sans, Arial, Verdana, Roboto, Hiragino Kaku Gothic ProN, Meiryo, sans-serif;
 $ie-font     : 'Segoe UI', Meiryo, sans-serif;
+//$futura      :'Futura Medium Italic', sans-serif;
+// $lato        : 'Lato', sans-serif;
+$roboto      : 'Roboto', sans-serif;
 $font-family : $gothic;
 
 //breakpoint
@@ -31,10 +60,24 @@ $breakpoints: (
   'xxl': (min-width: 1440px)
   ) !default;
 
+//breakpoint
+$bp_i5    : 320px;
+$bp_i6    : 375px;
+$bp_i6p   : 414px;
+$bp_sp_h  : 568px;
+$bp_tb_v  : 801px;
+$bp_tb_h  : 980px;
+$bp_pc    : 1080px;
+$bp_lpc   : 1280px;
+$bp_xlpc  : 1440px;
+$bp_WSXGA : 1680px;
+$bp_WUXGA : 1920px;
+$bp_base  : 1440px;
+
 //base size
 $w          : 1440;
 $w_sp       : 750;
-$frame_w    : 1240;
+$frame_w    : 1140;
 $frame      : (math.div($frame_w, $w) * 100vw);
 
 //retina
@@ -82,4 +125,4 @@ $ease-out-back:cubic-bezier(0.175, 0.885, 0.32, 1.275);
 $ease-in-out-back:cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 //others
-$transition : .3s $ease-out-sine;
+$transition : .25s $ease-in-out-sine;

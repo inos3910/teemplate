@@ -5,7 +5,7 @@ import { buildCss }    from './css'
 import { buildJs }     from './js'
 import { reload }      from './html'
 import { buildTs }     from './ts'
-import { browsersync } from './browsersync'
+import { browsersync, browsersyncStream } from './browsersync'
 
 const watcher = (done) => {
   gulp.watch(globs.sass, buildCss);

@@ -1,7 +1,5 @@
 import gulp                     from 'gulp'
-import sass                     from 'gulp-sass'
-import dartsass                 from 'sass'
-sass.compiler = dartsass;
+const sass = require('gulp-sass')(require('sass'));
 import fiber                    from 'fibers'
 //エラーでgulpが終了するのを止める
 import plumber                  from 'gulp-plumber'
@@ -31,6 +29,20 @@ import progeny                  from 'gulp-progeny'
 import browserSync              from 'browser-sync'
 //ファイル削除
 import del                      from 'del'
+import dependents               from 'gulp-dependents'
+import sassGlob                 from 'gulp-sass-glob-use-forward'
+
+const dependentsConfig = {
+  ".scss": {
+    parserSteps: [
+    /(?:^|;|{|}|\*\/)\s*@(import|use|forward|include)\s+((?:"[^"]+"|'[^']+'|url\((?:"[^"]+"|'[^']+'|[^)]+)\)|meta\.load\-css\((?:"[^"]+"|'[^']+'|[^)]+)\))(?:\s*,\s*(?:"[^"]+"|'[^']+'|url\((?:"[^"]+"|'[^']+'|[^)]+)\)|meta\.load\-css\((?:"[^"]+"|'[^']+'|[^)]+)\)))*)(?=[^;]*;)/gm,
+    /"([^"]+)"|'([^']+)'|url\((?:"([^"]+)"|'([^']+)'|([^)]+))\)|meta\.load\-css\((?:"([^"]+)"|'([^']+)'|([^)]+))\)/gm
+    ],
+    prefixes: ["_"],
+    postfixes: [".scss", ".sass"],
+    basePaths: []
+  }
+};
 
 //出力済みファイルを削除
 function deleteCssDir(done) {
@@ -70,10 +82,12 @@ function buildCss() {
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>')
   }))
-  //.pipe(sassGlob())
-  // .pipe(diff())
-  // .pipe(cache('sass'))
-  .pipe(progeny())
+  .pipe(diff())
+  .pipe(cache('sass'))
+  .pipe(sassGlob())
+  .pipe(dependents())
+  .pipe(sassGlob())
+  // .pipe(progeny())
   .pipe(sass({
     fiber: fiber,
     outputStyle: 'expanded',
