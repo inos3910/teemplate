@@ -1,4 +1,4 @@
-@use "../../global" as *;
+@use "global" as *;
 
 .u-frame{
   @include responsive(md) {
@@ -12,6 +12,7 @@
   @include responsive(xl) {
     max-width:#{$bp_base};
   }
+
 }
 
 .u-noscroll{

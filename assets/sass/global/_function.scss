@@ -1,6 +1,6 @@
 @use "sass:math";
 @use "./variable" as *;
-//function *********************//
+
 @function sizeCalc($size, $base, $unit) {
   @return (math.div($size, $base) * 100) + #{$unit};
 }

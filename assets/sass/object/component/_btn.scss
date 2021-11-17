@@ -1,4 +1,4 @@
-@use "../../global" as *;
+@use "global" as *;
 
 .c-btn{
   @include responsive(md) {
@@ -10,4 +10,5 @@
     &:hover{
     }
   }
+
 }

@@ -1,6 +1,5 @@
 import gulp                     from 'gulp'
-const sass = require('gulp-sass')(require('sass'));
-import fiber                    from 'fibers'
+import sass                     from 'gulp-dart-sass'
 //エラーでgulpが終了するのを止める
 import plumber                  from 'gulp-plumber'
 //デスクトップ通知
@@ -10,7 +9,7 @@ import base64                   from 'gulp-base64'
 //PostCss
 import postcss                  from 'gulp-postcss'
 //import cssnext                  from 'postcss-cssnext'
-import cssImport                from 'postcss-import'
+// import cssImport                from 'postcss-import'
 import autoprefixer             from 'autoprefixer';
 //flexboxのバグを自動修正
 import flexBugsFixes            from 'postcss-flexbugs-fixes'
@@ -23,7 +22,7 @@ import csso                     from 'gulp-csso'
 //config
 import {paths, globs} from '../config'
 //cache
-import diff                     from 'gulp-diff-build'
+// import diff                     from 'gulp-diff-build'
 import cache                    from 'gulp-cached'
 import progeny                  from 'gulp-progeny'
 import browserSync              from 'browser-sync'
@@ -31,6 +30,7 @@ import browserSync              from 'browser-sync'
 import del                      from 'del'
 import dependents               from 'gulp-dependents'
 import sassGlob                 from 'gulp-sass-glob-use-forward'
+// import debug                    from 'gulp-debug'
 
 const dependentsConfig = {
   ".scss": {
@@ -69,9 +69,9 @@ mqpacker({
   sort: true
 }),
 flexBugsFixes,
-cssImport({
-  path: [ 'node_modules' ]
-})
+// cssImport({
+//   path: [ 'node_modules' ]
+// })
 ];
 
 function buildCss() {
@@ -82,16 +82,16 @@ function buildCss() {
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>')
   }))
-  .pipe(diff())
-  .pipe(cache('sass'))
+  .pipe(cache('scss'))
   .pipe(sassGlob())
-  .pipe(dependents())
+  .pipe(dependents(dependentsConfig, { logDependents: true }))
   .pipe(sassGlob())
-  // .pipe(progeny())
-  .pipe(sass({
-    fiber: fiber,
-    outputStyle: 'expanded',
-  }))
+  .pipe(
+    sass.sync({
+      includePaths: [paths.nodeModules, paths.sassDir],
+      outputStyle: 'expanded'
+    }).on('error', sass.logError)
+    )
   .pipe(base64({
     baseDir      : paths.imageDir,
     extensions   : ['svg', 'png', /\.jpg#datauri$/i],

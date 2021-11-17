@@ -32,6 +32,7 @@ export const paths = {
   cssDir: path.join(__dirname, '../assets/css'),
   svgDir: path.join(__dirname, '../assets/svg'),
   svgminDir: path.join(__dirname, '../assets/svg'),
+  nodeModules : path.join(__dirname, '../node_modules'),
   jsEntryFileName: 'entry.js',
 };
 
