@@ -1,4 +1,7 @@
 @use "global" as *;
+// @use "global/variable" as *;
+// @use "global/mixin" as *;
+// @use "global/function" as *;
 
 .l-cover {
   @include responsive(md) {
@@ -6,3 +9,4 @@
   @include responsive(xl) {
   }
 }
+

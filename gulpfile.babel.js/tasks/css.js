@@ -79,16 +79,16 @@ function buildCss() {
     allowEmpty : true,
     sourcemaps : true
   })
+  .pipe(sassGlob())
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>')
   }))
   .pipe(cache('scss'))
-  .pipe(sassGlob())
   .pipe(dependents(dependentsConfig, { logDependents: true }))
   .pipe(sassGlob())
   .pipe(
     sass.sync({
-      includePaths: [paths.nodeModules, paths.sassDir],
+      includePaths: ['node_modules', 'assets/sass'],
       outputStyle: 'expanded'
     }).on('error', sass.logError)
     )
