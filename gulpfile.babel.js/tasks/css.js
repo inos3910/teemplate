@@ -24,7 +24,7 @@ import {paths, globs} from '../config'
 //cache
 // import diff                     from 'gulp-diff-build'
 import cache                    from 'gulp-cached'
-import progeny                  from 'gulp-progeny'
+// import progeny                  from 'gulp-progeny'
 import browserSync              from 'browser-sync'
 //ファイル削除
 import del                      from 'del'
