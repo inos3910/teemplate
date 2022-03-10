@@ -8,8 +8,6 @@ import notify                   from 'gulp-notify'
 import base64                   from 'gulp-base64'
 //PostCss
 import postcss                  from 'gulp-postcss'
-//import cssnext                  from 'postcss-cssnext'
-// import cssImport                from 'postcss-import'
 import autoprefixer             from 'autoprefixer';
 //flexboxのバグを自動修正
 import flexBugsFixes            from 'postcss-flexbugs-fixes'
@@ -22,16 +20,12 @@ import csso                     from 'gulp-csso'
 //config
 import {paths, globs} from '../config'
 //cache
-// import diff                     from 'gulp-diff-build'
 import cache                    from 'gulp-cached'
-// import progeny                  from 'gulp-progeny'
 import browserSync              from 'browser-sync'
 //ファイル削除
 import del                      from 'del'
 import dependents               from 'gulp-dependents'
 import sassGlob                 from 'gulp-sass-glob-use-forward'
-// import debug                    from 'gulp-debug'
-
 const dependentsConfig = {
   ".scss": {
     parserSteps: [
@@ -69,9 +63,6 @@ mqpacker({
   sort: true
 }),
 flexBugsFixes,
-// cssImport({
-//   path: [ 'node_modules' ]
-// })
 ];
 
 function buildCss() {
