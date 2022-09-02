@@ -130,7 +130,10 @@ export class Utils {
       entries.forEach(entry => {
        if (entry.isIntersecting) {
          entry.target.classList.add('is-effect');
-         observer.unobserve(entry.target);
+         // observer.unobserve(entry.target);
+       }
+       else{
+         entry.target.classList.remove('is-effect');
        }
      });
     }
