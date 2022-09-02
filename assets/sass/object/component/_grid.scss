@@ -1,0 +1,18 @@
+@use "global" as *;
+
+.c-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  @include responsive(md) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 30px;
+  }
+  @include responsive(xl) {
+  }
+
+  &__item{
+    aspect-ratio: 1/1;
+    background: #ccc;
+  }
+}

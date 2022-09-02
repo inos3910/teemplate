@@ -20,33 +20,26 @@ function deleteTsDistDir(done) {
 exports.deleteTsDistDir = deleteTsDistDir;
 
 function buildTs() {
-  return gulp
-    .src(globs.ts, {
-      allowEmpty: true,
-      since: gulp.lastRun(buildTs),
-    })
-    .pipe(
-      plumber({
-        errorHandler: notify.onError('<%= error.message %>'),
-      })
-    )
-    .pipe(
-      named((file) => {
-        return path.parse(file.relative).dir
-          ? path.parse(file.relative).dir
-          : 'main';
-      })
-    )
-    .pipe(webpackStream(webpackConfig, webpack))
-    .on('error', function (error) {
-      this.emit('end');
-    })
-    .pipe(gulp.dest(paths.tsDistDir))
-    .pipe(notify('buildTs finished'))
-    .pipe(
-      browserSync.reload({
-        stream: true,
-      })
-    );
+  return gulp.src(globs.ts, {
+    allowEmpty: true,
+    since     : gulp.lastRun(buildTs),
+  })
+  .pipe(plumber({
+    errorHandler: notify.onError('<%= error.message %>'),
+  }))
+  .pipe(named((file) => {
+    return path.parse(file.relative).dir
+    ? path.parse(file.relative).dir
+    : 'main';
+  }))
+  .pipe(webpackStream(webpackConfig, webpack))
+  .on('error', function (error) {
+    this.emit('end');
+  })
+  .pipe(gulp.dest(paths.tsDistDir))
+  .pipe(notify('buildTs finished'))
+  .pipe(browserSync.reload({
+    stream: true,
+  }));
 }
 exports.buildTs = buildTs;

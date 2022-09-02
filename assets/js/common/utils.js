@@ -1,6 +1,5 @@
-import 'lazysizes';
-import 'lazysizes/plugins/aspectratio/ls.aspectratio.js';
-require('intersection-observer');
+import anime from 'animejs/lib/anime.min.js';
+import 'intersection-observer';
 
 export class Utils {
   constructor() {
@@ -15,9 +14,6 @@ export class Utils {
 
   //初期設定
   default() {
-    this.lazyload();
-    this.objectFitImages();
-    this.picturefill();
     this.scrollEffectByPosition();
     this.setIntersectionObserver();
   }
@@ -36,43 +32,20 @@ export class Utils {
 
   //スマホ判定
   isSp() {
-    const mql = window.matchMedia('(min-width: 768px)');
+    const mql = window.matchMedia('(min-width: 801px)');
     return this.isTouch && !mql.matches;
   }
 
   //タブレット判定
   isTablet() {
-    const mql = window.matchMedia('(min-width: 768px)');
+    const mql = window.matchMedia('(min-width: 801px)');
     return this.isTouch && mql.matches;
   }
 
   //PC判定
   isPC() {
-    const mql = window.matchMedia('(min-width: 768px)');
+    const mql = window.matchMedia('(min-width: 801px)');
     return !this.isTouch && mql.matches;
-  }
-
-  //lazysizes
-  lazyload() {
-    if (typeof lazySizes != 'undefined') {
-      lazySizes.cfg.throttleDelay = 66;
-      lazySizes.cfg.loadMode  = 2;
-      lazySizes.cfg.expFactor = 3;
-    }
-  }
-
-  //css object-fit polyfill
-  objectFitImages() {
-    if (typeof objectFitImages != 'undefined') {
-      objectFitImages('img');
-    }
-  }
-
-  //css object-fit polyfill
-  picturefill() {
-    if (typeof picturefill != 'undefined') {
-      picturefill();
-    }
   }
 
   /*
@@ -87,6 +60,7 @@ export class Utils {
     const targetPos    = $(target).offset().top;
     const $header      = $('#js-header');
     const headerHeight = $header[0] ? $header.innerHeight() : 0;
+
     return anime({
       targets     : 'html,body',
       scrollTop   : targetPos - headerHeight,
@@ -107,14 +81,12 @@ export class Utils {
   }
 
   noevent(){
-    const $html = $('html');
-    $html.addClass('u-noevent');
+    this.html.addClass('u-noevent');
     document.addEventListener('touchmove', this.scrollControl, {passive: false});
   }
 
   cancelNoevent(){
-    const $html = $('html');
-    $html.removeClass('u-noevent');
+    this.html.removeClass('u-noevent');
     document.removeEventListener('touchmove', this.scrollControl, {passive: false});
   }
 
@@ -124,6 +96,12 @@ export class Utils {
   * @param {Function} cb コールバック関数
   */
   anchorScroll(e, cb = null) {
+    const targetUrl = e.currentTarget.href.replace(e.currentTarget.hash,"");
+    const currentUrl = location.protocol + "//" + location.host + location.pathname + location.search;
+    if(targetUrl !== currentUrl){
+      return;
+    }
+    
     const $target = $(e.currentTarget.hash);
     if(!$target[0]){
       return;
@@ -134,6 +112,7 @@ export class Utils {
     }
     e.stopPropagation();
     this.scrollTo($target, 800);
+
     if(cb){
       cb();
     }

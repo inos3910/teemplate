@@ -1,7 +1,7 @@
 @use "global/*";
-@use "foundation/*" as *;
-@use "foundation/vendor/*" as *;
-@use "layout/*" as *;
-@use "object/component/*" as *;
-@use "object/project/*" as *;
-@use "object/utility/*" as *;
+@use "foundation/*";
+@use "layout/*";
+@use "object/component/*";
+@use "object/project/*";
+@use "object/utility/*";
+

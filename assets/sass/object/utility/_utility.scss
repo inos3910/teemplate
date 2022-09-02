@@ -2,17 +2,17 @@
 
 .u-frame{
   @include responsive(md) {
-    max-width: calc(100% - #{vw-size-pc(150)});
+    max-width: calc(100% - #{vw-size-pc(200)});
     margin-right: auto;
     margin-left: auto;
   }
-  @include responsive(lg) {
-    max-width: vw-size-pc($frame_w);
-  }
   @include responsive(xl) {
-    max-width:#{$bp_base};
+    max-width: calc(100% - 200px);
   }
-
+  @include responsive(xxl) {
+    width: calc(100% - 200px);
+    max-width: 1440px;
+  }
 }
 
 .u-noscroll{

@@ -19,33 +19,33 @@ if (is_wp) {
 
 //各パス設定
 export const paths = {
-  serverDir: `localhost/${serverDirName}`,
-  themeDir: path.join(__dirname, '../'),
-  assetsDir: path.join(__dirname, '../assets'),
-  imageDir: path.join(__dirname, '../assets/images'),
-  imageminDir: path.join(__dirname, '../assets/imagemin'),
-  jsSrcDir: path.join(__dirname, '../assets/js'),
-  jsDistDir: path.join(__dirname, '../assets/dist'),
-  tsSrcDir: path.join(__dirname, '../assets/ts'),
-  tsDistDir: path.join(__dirname, '../assets/build'),
-  sassDir: path.join(__dirname, '../assets/sass'),
-  cssDir: path.join(__dirname, '../assets/css'),
-  svgDir: path.join(__dirname, '../assets/svg'),
-  svgminDir: path.join(__dirname, '../assets/svg'),
-  nodeModules : path.join(__dirname, '../node_modules'),
+  serverDir      : `localhost/${serverDirName}`,
+  themeDir       : path.join(__dirname, '../'),
+  assetsDir      : path.join(__dirname, '../assets'),
+  imageDir       : path.join(__dirname, '../assets/images'),
+  imageminDir    : path.join(__dirname, '../assets/imagemin'),
+  jsSrcDir       : path.join(__dirname, '../assets/js'),
+  jsDistDir      : path.join(__dirname, '../assets/dist'),
+  tsSrcDir       : path.join(__dirname, '../assets/ts'),
+  tsDistDir      : path.join(__dirname, '../assets/build'),
+  sassDir        : path.join(__dirname, '../assets/sass'),
+  cssDir         : path.join(__dirname, '../assets/css'),
+  svgDir         : path.join(__dirname, '../assets/svg'),
+  svgminDir      : path.join(__dirname, '../assets/svg'),
+  nodeModules    : path.join(__dirname, '../node_modules'),
   jsEntryFileName: 'entry.js',
 };
 
 //ファイルマッチパターン
 export const globs = {
-  html: `${paths.themeDir}**/*.(html|php)`,
-  svg: `${paths.svgDir}/**/*.svg`,
-  img: `${paths.imageDir}/**/*.+(jpg|jpeg|png|gif|svg)`,
+  html  : `${paths.themeDir}**/*.(html|php)`,
+  svg   : `${paths.svgDir}/**/*.svg`,
+  img   : `${paths.imageDir}/**/*.+(jpg|jpeg|png|gif|svg)`,
   toWebp: `${paths.imageDir}/**/*.+(jpg|jpeg|png)`,
-  sass: `${paths.sassDir}/**/*.scss`,
-  js: `${paths.jsSrcDir}/**/*.+(js|vue)`,
-  ts: `${paths.tsSrcDir}/**/*.ts`,
-  entry: `${paths.jsSrcDir}/**/entry.js`,
+  sass  : `${paths.sassDir}/**/*.scss`,
+  js    : `${paths.jsSrcDir}/**/*.+(js|vue)`,
+  ts    : `${paths.tsSrcDir}/**/*.ts`,
+  entry : `${paths.jsSrcDir}/**/${paths.jsEntryFileName}`,
 };
 
 const config = { paths, globs };
