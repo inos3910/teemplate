@@ -10,15 +10,14 @@ module.exports = {
   output   : {
     filename : '[name].bundle.js',
   },
-  optimization: {
-    splitChunks: {
-      name   : 'vendor',
-      // chunks (chunk) {
-      //   return chunk.name !== 'admin-store-update';
-      // },
-      chunks : 'initial',
-    }
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     name   : 'vendor',
+  //     chunks (chunk) {
+  //       return chunk.name !== 'base-theme';
+  //     },
+  //   }
+  // },
   // externals: {
   //   swiper: 'Swiper',
   // },
@@ -41,24 +40,15 @@ module.exports = {
           presets: ['@babel/preset-env']
         }
       }]
-    },
-    {
-      test: /\.ts$/,
-      use: [
-      { loader: "babel-loader" },
-      { loader: "ts-loader" }
-      ],
-      exclude: /node_modules/
     }
     ]
   },
   resolve: {
     modules    : ["node_modules"],
-    extensions : ['.ts', '.js'],
+    extensions : ['.js'],
     alias      : {
       '@as'         : paths.assetsDir,
       '@js'         : paths.jsSrcDir,
-      '@ts'         : paths.tsSrcDir
     }
   }
 };
