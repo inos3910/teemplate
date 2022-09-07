@@ -1,5 +1,4 @@
 import webpack                from 'webpack'
-import EncodingPlugin         from 'webpack-encoding-plugin'
 import path                   from 'path'
 import {paths}                from './config.js'
 
@@ -23,10 +22,6 @@ module.exports = {
   // },
   plugins  : [
   // new BundleAnalyzerPlugin(),
-  new webpack.optimize.AggressiveMergingPlugin(),
-  new EncodingPlugin({
-    encoding: 'utf-8'
-  })
   ],
   target: ['web', 'es5'],
   module: {
@@ -34,21 +29,39 @@ module.exports = {
     {
       test: /\.js$/,
       exclude: /node_modules\/(?!(dom7|swiper)\/).*/,
-      use: [{
+      use: [
+      {
         loader: 'babel-loader',
         options: {
           presets: ['@babel/preset-env']
         }
-      }]
+      }
+      ]
+    },
+    {
+      test: /\.ts$/,
+      use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env'],
+        },
+      },
+      {
+        loader: 'ts-loader',
+      },
+      ],
+      exclude: /node_modules/,
     }
     ]
   },
   resolve: {
     modules    : ["node_modules"],
-    extensions : ['.js'],
-    alias      : {
-      '@as'         : paths.assetsDir,
-      '@js'         : paths.jsSrcDir,
+    extensions: ['.ts', '.js'],
+    alias: {
+      '@as': paths.assetsDir,
+      '@js': paths.jsSrcDir,
+      '@ts': paths.tsSrcDir,
     }
   }
 };

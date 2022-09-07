@@ -4,22 +4,17 @@ import path from 'path';
 import glob from 'glob';
 import del from 'del'; //ファイル削除
 import browserSync from 'browser-sync';
-
 import plumber from 'gulp-plumber'; //エラーでgulpが終了するのを止める
 import notify from 'gulp-notify'; //デスクトップ通知
-// import diff from 'gulp-diff-build';
 import gulpif from 'gulp-if';
 import gulpEsbuild from 'gulp-esbuild';
 import rename from 'gulp-rename';
+import webpack from 'webpack';
+import webpackStream from 'webpack-stream';
+import webpackConfig from '../webpack.config';
+import named from 'vinyl-named'; //webpackでファイル結合時に名前変更
 
 const is_production = process.env.NODE_ENV === 'production';
-
-//出力済みファイルを削除
-function deleteJsDistDir(done) {
-  return del([paths.jsDistDir], done);
-}
-exports.deleteJsDistDir = deleteJsDistDir;
-
 const esbuildConfig = {
   entryPoints: glob.sync(globs.entry),
   bundle     : true,
@@ -31,51 +26,47 @@ const esbuildConfig = {
   outdir     : 'dist'
 };
 
+//出力済みファイルを削除
+function deleteJsDistDir(done) {
+  return del([paths.jsDistDir], done);
+}
+exports.deleteJsDistDir = deleteJsDistDir;
+
+// dev build
 function buildJs() {
-  let distFileName = 'app';
   return gulp.src(globs.entry, {
     allowEmpty: true,
   })
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>'),
   }))
-  .pipe(gulpif((file) => {
-    distFileName = file.relative ? path.parse(file.relative).dir : distFileName;
-    return true;
-  }, gulpEsbuild(esbuildConfig)))
-  .pipe(rename((path) => {
-    path.basename = path.dirname && path.dirname !== '.' ? `${path.dirname}.bundle` : `${distFileName}.bundle`;
-    path.dirname  = '';
+  .pipe(gulpEsbuild(esbuildConfig))
+  .pipe(rename((renamePath) => {
+    renamePath.basename = `${path.parse(renamePath.dirname).name}.bundle`;
+    renamePath.dirname  = 'dist';
   }))
-  .pipe(gulp.dest(paths.jsDistDir))
+  .pipe(gulp.dest(paths.assetsDir))
   .pipe(notify('buildJs finished'))
   .pipe(browserSync.reload({
-    stream: true,
+    stream: true
   }));
 }
 exports.buildJs = buildJs;
 
+//prod build
 function buildJsAll() {
-  // let distFileName = 'app';
-
   return gulp.src(globs.entry, {
     allowEmpty: true,
   })
   .pipe(plumber({
     errorHandler: notify.onError('<%= error.message %>'),
   }))
-  // .pipe(gulpif((file) => {
-  //   distFileName = file.relative ? path.parse(file.relative).dir : distFileName;
-  //   return true;
-  // }, gulpEsbuild(esbuildConfig)))
-  .pipe(gulpEsbuild(esbuildConfig))
-  // .pipe(rename((path) => {
-  //   console.log(distFileName);
-  //   path.basename = path.dirname && path.dirname !== '.' ? `${path.dirname}.bundle` : `${distFileName}.bundle`;
-  //   path.dirname  = '';
-  // }))
-  .pipe(gulp.dest(paths.assetsDir))
-  .pipe(notify('buildJsAll finished'))
+  .pipe(named((file) => {
+    return file.relative ? path.parse(file.relative).dir : 'code';
+  }))
+  .pipe(webpackStream(webpackConfig, webpack))
+  .pipe(gulp.dest(paths.jsDistDir))
+  .pipe(notify('build:js-all finished'))
   .pipe(browserSync.reload({
     stream: true,
   }));

@@ -8,9 +8,14 @@ module.exports = merge(common, {
     minimizer  : [
     new TerserPlugin({
       terserOptions: {
-        compress: {drop_console: true}
+        compress: {
+          drop_console: true
+        },
+        format: {
+          ascii_only: true
+        }
       }
     })
-    ],
+    ]
   }
 });
