@@ -5,6 +5,7 @@
 *.map
 *.lock
 *.webp
+*.avif
 
 .htaccess
 .htpasswd

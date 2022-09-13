@@ -4,7 +4,7 @@ import { deleteCssDir, buildCss } from './tasks/css';
 import { deleteJsDistDir, buildJs, buildJsAll } from './tasks/js';
 import { deleteTsDistDir, buildTs } from './tasks/ts';
 import { browsersync } from './tasks/browsersync';
-import { webp } from './tasks/img';
+import { webp, imageConversion, deleteImageOptimizedDir } from './tasks/img';
 
 //Default
 exports.default = gulp.series(watcher, browsersync);
@@ -19,3 +19,4 @@ exports.build = gulp.series(
 exports.buildTs = gulp.series(deleteTsDistDir, buildTs);
 //画像処理系
 exports.webp = webp;
+exports.imageConversion = gulp.series(deleteImageOptimizedDir, imageConversion);
