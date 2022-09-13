@@ -7,16 +7,16 @@
         "test": "test"
     },
     "scripts": {
-        "dev"           : "NODE_ENV=development gulp",
-        "production"    : "NODE_ENV=production gulp",
-        "webp"          : "gulp webp",
+        "dev": "NODE_ENV=development gulp",
+        "production": "NODE_ENV=production gulp",
+        "webp": "gulp webp",
         "optimize-image": "gulp imageConversion",
-        "svgmin"        : "gulp svgmin",
-        "build"         : "NODE_ENV=production gulp build",
+        "svgmin": "gulp svgmin",
+        "build": "NODE_ENV=production gulp build",
         "build          :ts": "NODE_ENV=production gulp buildTs",
-        "tscheck"       : "yarn run tsc --noEmit && yarn run tslint",
-        "tslint"        : "tslint --project tsconfig.json",
-        "tslint-fix"    : "tslint --fix --project tsconfig.json"
+        "tscheck": "yarn run tsc --noEmit && yarn run tslint",
+        "tslint": "tslint --project tsconfig.json",
+        "tslint-fix": "tslint --fix --project tsconfig.json"
     },
     "keywords": [
         "gulp"
@@ -34,7 +34,7 @@
         "@babel/register": "^7.18.9",
         "@babel/runtime": "^7.19.0",
         "animejs": "^3.2.1",
-        "autoprefixer": "^10.4.8",
+        "autoprefixer": "^10.4.9",
         "axios": "^0.27.2",
         "babel-loader": "^8.2.5",
         "browser-sync": "^2.27.10",
@@ -74,7 +74,7 @@
         "postcss-assets": "^6.0.0",
         "postcss-flexbugs-fixes": "^5.0.2",
         "postcss-import": "^15.0.0",
-        "sass": "^1.54.8",
+        "sass": "^1.54.9",
         "swiper": "^8.3.2",
         "terser-webpack-plugin": "^5.3.6",
         "through2": "^4.0.2",
@@ -83,7 +83,7 @@
         "tslint-config-prettier": "^1.18.0",
         "tslint-config-standard": "^9.0.0",
         "tslint-plugin-prettier": "^2.0.1",
-        "typescript": "^4.8.2",
+        "typescript": "^4.8.3",
         "vinyl": "^2.2.1",
         "vinyl-named": "^1.1.0",
         "vinyl-source-stream": "^2.0.0",
@@ -93,7 +93,7 @@
         "webpack-stream": "^7.0.0"
     },
     "dependencies": {
-        "core-js": "3.25.0",
+        "core-js": "3.25.1",
         "regenerator-runtime": "^0.13.9"
     },
     "browserslist": [

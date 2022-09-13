@@ -12,17 +12,32 @@
   }
 
   &__item{
+    overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: vw-size-sp(200);
     aspect-ratio: 1/1;
     background: #ccc;
+    @include responsive(md) {
+      contain-intrinsic-size: vw-size-pc(224);
+    }
+    @include responsive(xl) {
+      contain-intrinsic-size: 224px;
+    }
 
     &.is-ev{
-      opacity: 0;
-      transform: scale(1.25);
-      transition: $transition;
+      img{
+        opacity: 0;
+        transform: scale(1.5);
+        transition: opacity $transition, transform 1s $ease-out-quart;
+        // transition-property: opacity, transform;
+      }
+      
 
       &.is-effect{
-        opacity: 1;
-        transform: none;
+        img{
+          opacity: 1;
+          transform: none;
+        }
       }
     }
   }

@@ -62,7 +62,7 @@ function buildJsAll() {
     errorHandler: notify.onError('<%= error.message %>'),
   }))
   .pipe(named((file) => {
-    return file.relative ? path.parse(file.relative).dir : 'code';
+    return file.relative ? path.parse(file.relative).dir : 'index';
   }))
   .pipe(webpackStream(webpackConfig, webpack))
   .pipe(gulp.dest(paths.jsDistDir))
