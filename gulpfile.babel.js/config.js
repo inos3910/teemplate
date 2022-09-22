@@ -24,7 +24,7 @@ export const paths = {
   assetsDir        : path.join(__dirname, '../assets'),
   imageDir         : path.join(__dirname, '../assets/images'),
   imageminDir      : path.join(__dirname, '../assets/imagemin'),
-  imageOptimizedDir: path.join(__dirname, '../assets/image-optimized'),
+  imageOptimizedDir: path.join(__dirname, '../assets/images/optimized'),
   jsSrcDir         : path.join(__dirname, '../assets/js'),
   jsDistDir        : path.join(__dirname, '../assets/dist'),
   tsSrcDir         : path.join(__dirname, '../assets/ts'),

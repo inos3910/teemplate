@@ -1,7 +1,6 @@
 import gulp from 'gulp';
 import { globs, paths } from '../config.js';
 import squoosh from 'gulp-libsquoosh';
-import path from 'path';
 import del from 'del'; //ファイル削除
 
 //webp生成
@@ -37,42 +36,22 @@ function imageConversion() {
     since      : gulp.lastRun(imageConversion)
   })
   .pipe(rename((path) => {
+    console.log(path.basename, path.extname);
     path.basename += path.extname;
   }))
-  .pipe(squoosh((src) => {
-    const extname = path.extname(src.path);
-    let options = {
-      encodeOptions: squoosh.DefaultEncodeOptions[extname],
-    };
-
-    if (extname === '.png') {
-      options = {
-        encodeOptions: {
-          webp: {
-            lossless: true,
-          },
-          avif: {
-            quality: 90,
-          }
-        },
-      };
+  .pipe(squoosh({
+    encodeOptions: {
+      webp: {
+        quality: 90,
+      },
+      avif: {
+        quality: 90,
+      }
     }
-
-    if (extname === '.jpg') {
-      options = {
-        encodeOptions: {
-          webp: {
-            quality: 90,
-          },
-          avif: {
-            quality: 90,
-          }
-        },
-      };
-    }
-
-    return options;
   }))
   .pipe(gulp.dest(paths.imageOptimizedDir));
 }
 exports.imageConversion = imageConversion;
+
+
+
