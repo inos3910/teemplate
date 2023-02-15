@@ -8,9 +8,44 @@ window.$ = jQuery;
 import Events from './events';
 new Events();
 
+/*
+
+const str = `
+無償化特典をご希望のテンプレート名:
+room.
+
+BASEロゴ非表示Appの無償化特典:
+希望する
+
+ショップURL（※閲覧できるURLをご入力ください）:
+https://qikka.official.ec/
+
+ショップ運営責任者の氏名（※フルネーム）:
+八田蘭
+
+メールアドレス（※BASEアカウントで利用しているもの）:
+qikka.store@gmail.com
+
+`;
+
+
+var template = extractStr('メールアドレス（※BASEアカウントで利用しているもの）:', '\n\n', str);
+console.log(template)
+
+function extractStr(before, after, str){
+  var reg    = new RegExp(before + '[\\s\\S]*?' + after);
+  var match  = str.match(reg);
+  if(!match){
+    return;
+  }
+
+  var value  = match[0].replace(before, '').replace(after, '').replace(/\r?\n/g, '');
+  return value;
+}
+
 let str = 'test';
 
-/*
+
 if(str){
   const username = 'テスト';
   const useremail = 'info@fromo.dev';
@@ -55,3 +90,4 @@ if(str){
   console.log(str);
 }
 
+*/
