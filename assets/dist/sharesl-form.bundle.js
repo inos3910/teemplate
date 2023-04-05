@@ -1,1 +1,0 @@
-!function(){var e;e=function(e,n){n.disabled=!e.checked},document.addEventListener("DOMContentLoaded",(function(n){var t=document.getElementById("privacy");if(t){var c=document.querySelector('input[type="submit"]');c&&(e(t,c),t.addEventListener("change",(function(n){e(n.currentTarget,c)}),!1))}}),!1)}();

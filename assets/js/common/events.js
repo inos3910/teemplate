@@ -6,7 +6,6 @@ class Events extends Main {
   }
 
   bind() {
-
     //スマホ：メニューボタンタップ
     this.doc.on('click', '#js-menu-btn', (e) => {
       this.toggleMenu();
@@ -14,12 +13,11 @@ class Events extends Main {
 
     //スマホ：メニュ-閉じる
     this.doc.on('click', '.js-menu-close', (e) => {
-      if(e.cancelable){
+      if (e.cancelable) {
         e.preventDefault();
       }
       this.closeMenu();
     });
-
 
     //アンカースクロール
     this.doc.on('click', 'a', (e) => {
@@ -30,10 +28,10 @@ class Events extends Main {
 
     //電話番号リンク PCは無効化
     this.doc.on('click', 'a[href^="tel:"]', (e) => {
-      if(!this.isPC){
+      if (!this.isPC) {
         return;
       }
-      if(e.cancelable){
+      if (e.cancelable) {
         e.preventDefault();
       }
     });
