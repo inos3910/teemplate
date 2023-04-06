@@ -5,35 +5,28 @@
   }
   @include responsive(xl) {
   }
+}
 
-  &__inner{
-    padding: 30px;
-    @include responsive(md) {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 30px 0;
-    }
-    @include responsive(xl) {
-    }
+.l-header__inner {
+  @include responsive(md) {
   }
-
-  &__logo{
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: 0.09em;
-    @include responsive(md) {
-    }
-    @include responsive(xl) {
-    }
-  }
-
-  &__menu{
-    @include responsive(md) {
-    }
-    @include responsive(xl) {
-    }
+  @include responsive(xl) {
   }
 }
 
+.l-header__logo {
+  width: vw-size-sp(420);
+  @include responsive(md) {
+    width: vw-size-pc(360);
+  }
+  @include responsive(xl) {
+    width: 360px;
+  }
+}
 
+.l-header__menu {
+  @include responsive(md) {
+  }
+  @include responsive(xl) {
+  }
+}

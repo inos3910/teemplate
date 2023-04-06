@@ -2,9 +2,11 @@
 @use "global" as *;
 
 html {
-  min-height: 100vh;
   touch-action: manipulation;
   text-rendering: optimizeSpeed;
+
+  --text-color: #{$text-color};
+  --bg-color: #{$bg-color};
 
   &.is-menu-active {
     overflow: hidden;
@@ -19,48 +21,42 @@ html {
 }
 
 body {
-  min-height: 100vh;
-  font-size: max(vw-size-sp(24), 12px);
+  font-size: unquote("max(#{vw-size-sp(27)}, 13px)");
   font-family: $font-family;
   font-weight: 400;
   font-kerning: normal;
-  color: $black;
-  background: $bg-color;
+  color: var(--text-color);
+  background: var(--bg-color);
   word-wrap: break-word;
+  word-break: break-all;
   overflow-wrap: break-word;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: unset;
   text-rendering: optimizeSpeed;
   @include responsive(md) {
-    font-size: vw-size-pc(12);
+    font-size: vw-size-pc(13);
   }
-  @include responsive(xxl) {
-    font-size: 12px;
+  @include responsive(xl) {
+    font-size: 13px;
   }
 
   @media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-  @media screen\0 {
-    font-family: $ie-font;
-  }
 }
 
 a {
   text-decoration: none;
   color: currentColor;
-  -webkit-touch-callout: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   @media (any-hover: hover) {
     transition: $transition;
   }
 
   &[href^="tel"] {
-    @include min-screen($bp_tb_v) {
+    @include responsive(md) {
       pointer-events: none;
       cursor: default;
     }
@@ -105,10 +101,6 @@ button {
   &:disabled {
     cursor: default;
   }
-
-  @media screen\0 {
-    font-family: $ie-font;
-  }
 }
 
 input,
@@ -130,39 +122,11 @@ img {
 
 picture {
   display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-svg {
-  overflow: visible;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  transform-box: fill-box;
-  path,
-  rect,
-  circle,
-  polygon {
-    transform-box: fill-box;
-    transform-origin: 50% 50%;
-    backface-visibility: hidden;
-  }
 }
 
 mark {
-  background: linear-gradient(transparent 50%, $yellow 50%);
+  background: linear-gradient(transparent 50%, $key-color 50%);
 }
-
-// ::selection {
-//   @media (any-hover:hover) {
-//     background: rgba($key-color, 0.8);
-//     color: #fff;
-//   }
-// }
 
 @media (prefers-reduced-motion: reduce) {
   * {
